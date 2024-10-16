@@ -114,10 +114,12 @@ async function call_simulation() {
 
 async function start_simulation() {
     time_start()
+
     // INIT
     if (!paused) {
         // TODO liczenie czasu
         await init_simulation()
+        WON = false
     } else {
         paused = false
     }
