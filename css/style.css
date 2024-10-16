@@ -1,0 +1,8 @@
+.guess-section {
+    display: inline-block;
+    margin: 10px;
+}
+
+.guess-input {
+    width: 40px;
+}

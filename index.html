@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mitolotto</title>
+    <script src="js\jq.js"></script>
+    <script src="js\api_handler.js"></script>
+    <script src="js\guess.js"></script>
+
+    <link rel="stylesheet" href="css\style.css">
+
+</head>
+
+<body>
+    <div class="controls">
+        <select name="lottery-type" id="lottery-type">
+            <option value="Lotto">Lotto</option>
+            <option value="EuroJackpot">EuroJackpot</option>
+        </select>
+        <button id="start-btn" onclick="start_simulation()">Start</button>
+        <button id="pause-btn" onclick="pause_simulation()">Pause</button>
+        <br>
+        <input type="checkbox" name="random-guess" id="random-guess" checked>
+        <label for="random-guess">chybił trafił</label>
+    </div>
+
+    <div class="guess">
+
+    </div>
+
+    <hr>
+
+    <div class="result">
+        <h4>Games played: </h4>
+        <p class="games-played"></p>
+
+        <h4>Years passed: </h4>
+        <p class="years-passed"></p>
+
+        <h4>Money spent: </h4>
+        <p class="money-spent"></p>
+
+        <h4>Money earned: </h4>
+        <p class="money-earned"></p>
+
+        <h4>Total balance: </h4>
+        <p class="total-balance"></p>
+
+        <h4>Top price wins: </h4>
+        <p class="top-price-wins"></p>
+    </div>
+
+    <div class="time">
+        average time <i>-</i> ms per year
+    </div>
+</body>
+
+</html>
