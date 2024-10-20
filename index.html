@@ -4,10 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mitolotto</title>
+    <title>MiToLotto</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@thumbmarkjs/thumbmarkjs/dist/thumbmark.umd.js"></script>
     <script src="js\jq.js"></script>
     <script src="js\api_handler.js"></script>
     <script src="js\guess.js"></script>
+    <script src="js\custom_lottery.js"></script>
 
     <link rel="stylesheet" href="css\style.css">
 
@@ -20,14 +23,51 @@
             <option value="EuroJackpot">EuroJackpot</option>
         </select>
         <button id="start-btn" onclick="start_simulation()">Start</button>
-        <!-- <button id="pause-btn" onclick="pause_simulation()">Pause</button> -->
+        <button id="pause-btn" onclick="pause_simulation()">Pause</button>
         <br>
         <input type="checkbox" name="random-guess" id="random-guess" checked>
         <label for="random-guess">chybił trafił</label>
+        <br>
+        <input type="range" name="rounds-per-week" id="rounds-per-week" min="1" max="7" step="1" value="3"
+            oninput="this.nextElementSibling.value = this.value">
+        <output>3</output>
+        <label for="random-guess">loterie w tygodniu</label>
     </div>
 
     <div class="guess">
 
+    </div>
+
+    <div class="custom-settings-popup" style="display: none">
+        <div class="exit-btn">X</div>
+
+        <h4>Guess format</h4>
+        <div class="guess-settings">
+            <div class="guess-sections">
+                <!-- <div class="guess-section">
+                    <div class="section-number-range"></div>
+
+                    <div class="section-fields">
+                        <div class="guess-field"></div>
+                    </div>
+                    <div class="add-field-btn">+</div>
+                </div>
+                -->
+            </div>
+            <div class="add-section-btn">+</div>
+        </div>
+
+        <h4>Table of rewards (price for number of correct guesses in each section)</h4>
+        <table class="rewards-table">
+            <tr>
+                <th>Number of correct guesses in each section</th>
+                <th>Price</th>
+            </tr>
+        </table>
+
+        <div class="guess-price">
+            <p>Ticket price: <input id="input-guess-price" type="number" min="0" step="any" value="1"></p>
+        </div>
     </div>
 
     <hr>

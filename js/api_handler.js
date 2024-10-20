@@ -1,3 +1,11 @@
+function generate_uid() {
+    ThumbmarkJS.getFingerprint().then(
+        function (fp) {
+            return fp
+        }
+    );
+}
+
 function time_start() {
     const date = new Date();
     time_started = date.getTime()
@@ -46,20 +54,26 @@ function update_html(data) {
 async function init_simulation() {
     // POST on api
     const postURL = apiURL + UID
-
-    // remove previous session if exists
-    await fetch(postURL, { method: "DELETE" })
-
-    const simulationType = $("#lottery-type").val()
+    const lottery_name = $("#lottery-type").val()
 
     const body = {
-        "lottery_name": simulationType
+        "lottery_name": lottery_name,
+        "rounds_per_week": parseInt($("#rounds-per-week").val())
     }
+
 
     const guess = get_guess()
     if (!(guess === undefined)) {
         body["guess"] = guess
     }
+
+    if (lottery_name == "CUSTOM") {
+        body["custom"] = true
+        body["custom_guess_table"] = get_guess_table()
+        body["custom_reward_table"] = get_price_table()
+        body["custom_guess_price"] = get_guess_price()
+    }
+
 
     const options = {
         method: "POST",
@@ -135,13 +149,9 @@ function pause_simulation() {
 
 
 
-const apiURL = "http://dominik.chiptric.com/lottery/"
+const apiURL = "http://127.0.0.1:5000/api/"
 let WON = false
 let paused = false
 let time_started
-
-function generate_uid() {
-    return self.crypto.randomUUID()
-}
 const UID = generate_uid()
 console.log(UID)
