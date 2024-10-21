@@ -26,7 +26,7 @@ function load_guess(lottery_name) {
     guess_fields = []
 
     guess_table.forEach(section => {
-        const section_div = $("<div>").addClass("guess-section")
+        const section_div = $("<section>").addClass("guess-section")
         let section_fields = []
 
         section.forEach(field => {

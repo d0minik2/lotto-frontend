@@ -19,7 +19,6 @@ function calculate_avg_time(years_passed) {
 
     // in milliseconds 
     avg_time_per_year = time / years_passed
-    console.log(avg_time_per_year, time, time_started, now)
     return Math.round(avg_time_per_year * 100) / 100
 }
 
@@ -65,6 +64,8 @@ async function init_simulation() {
     const guess = get_guess()
     if (!(guess === undefined)) {
         body["guess"] = guess
+    } else if (guess === false) {
+        return false
     }
 
     if (lottery_name == "CUSTOM") {
@@ -95,7 +96,7 @@ async function init_simulation() {
             }
 
             disable_guess()
-            // console.log(true_guess)
+            $(".result").css("display", "block")
         })
         .catch(error => {
             console.error('Error:', error)
@@ -129,6 +130,7 @@ async function call_simulation() {
 async function start_simulation() {
     time_start()
 
+
     // INIT
     if (!paused) {
         // TODO liczenie czasu
@@ -149,9 +151,9 @@ function pause_simulation() {
 
 
 
-const apiURL = "http://127.0.0.1:5000/api/"
+const apiURL = "http://dominik.chiptric.com/api/"
 let WON = false
 let paused = false
 let time_started
 const UID = generate_uid()
-console.log(UID)
+

@@ -1,0 +1,321 @@
+@import "./functions";
+@import "./resets";
+
+$bg-color: #000000;
+$bg-color2: #464948;
+$dark-bg-color: #000000;
+$bright-bg-color: #cbcbd4;
+$text-color: #f2f2f2;
+$accent-color: #2426be;
+$green-color: #6bc395;
+
+$primary-font: Helvetica, Arial, sans-serif;
+$header-font: Helvetica, sans-serif;
+$font-weights: (
+    "regular": 400,
+    "medium": 500,
+    "bold": 700
+);
+$font-sizes: (
+    "small": 17px,
+    "medium": 28px,
+    "large": 60px
+);
+
+$default-border: 1px solid $bright-bg-color;
+$default-radius: 50px;
+$default-smaller-radius: 10px;
+$default-padding: 40px;
+
+$inner-glare: inset $bright-bg-color 0px 0px 20px -10px;
+$inner-shadow: inset $bg-color 0px 0px 20px -10px;
+$green-inner-glare: inset $green-color 0px 0px 20px -10px;
+$outer-glare: 0px 0px 26px 0px $bright-bg-color;
+
+$tranistion-time: 0.3s;
+
+body {
+    background-color: $bg-color;
+    background: radial-gradient(circle, $bg-color, $bg-color2), url(../assets/noise-texture.svg);
+    background-size: 200vw 200vh;
+    background-attachment: fixed;
+
+    animation: background-blur 20s ease infinite;
+
+    color: $text-color;
+    font-family: $primary-font;
+}
+
+nav {
+    position: absolute;
+
+    .top-horizontal-bar {
+        position: relative;
+        width: 100%;
+        top: 0;
+
+        h1 {
+            font-family: $header-font;
+            font-size: map-get($font-sizes, large);
+        }
+    }
+
+    .left-vertical-bar {
+        position: relative;
+        // transform: rotate(-90deg);
+        top: 0;
+        left: 0;
+        * {
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+        }
+        h2 {
+            font-family: $header-font;
+            font-size: map-get($font-sizes, medium);
+        }
+    }
+}
+
+main {
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.controls {
+    position: absolute;
+    max-width: 95vw;
+    min-height: 500px;
+    @include center;
+    padding-top: 40px;
+
+    .lottery-type {
+        display: block;
+        margin: 0 auto;
+        background-color: transparent;
+        color: $text-color;
+        border: none;
+        font-weight: map-get($font-weights, regular);
+        font-family: $header-font;
+        font-size: map-get($font-sizes, medium);
+
+        option {
+            text-align: center;
+            background-color: $bg-color;
+        }
+        option:last-child {
+            background-color: $accent-color;
+            font-weight: map-get($font-weights, bold);
+        }
+    }
+
+    .guess-settings {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        max-width: 98vw;
+
+        .guess {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            section {
+                display: inline-flex;
+
+                gap: $default-padding;
+                margin: 10px;
+                padding: $default-padding;
+                // border: $default-border;
+                border-radius: $default-radius;
+
+                box-shadow: $inner-glare;
+
+                // background-color: $dark-bg-color;
+            }
+            select {
+                font-size: map-get($font-sizes, large);
+                width: 1.2em;
+                height: 2em;
+                background-color: $bright-bg-color;
+                border-radius: $default-smaller-radius;
+                font-weight: map-get($font-weights, bold);
+
+                appearance: none;
+                text-align: center;
+                justify-content: center;
+                box-shadow: $inner-shadow, $outer-glare;
+                transition: $tranistion-time;
+                option {
+                    font-size: map-get($font-sizes, small);
+                }
+            }
+        }
+        .random-guess-checkbox {
+            display: none;
+        }
+
+        .random-guess-btn {
+            // position: absolute;
+            // right: -1.2em;
+            font-size: map-get($font-sizes, large);
+            display: block;
+            padding: 8px;
+            // margin-left: 8px;
+            background-color: transparent;
+            border-radius: $default-smaller-radius;
+            border: $default-border;
+            border-color: transparent;
+            // box-shadow: $inner-glare;
+            width: 1.2em;
+            text-align: center;
+            transition: $tranistion-time;
+            img {
+                width: 100%;
+                opacity: 0.9;
+            }
+        }
+
+        .random-guess-checkbox:checked + .random-guess-btn {
+            border-color: $green-color;
+            box-shadow: $green-inner-glare;
+        }
+    }
+
+    .rounds-per-week {
+        display: inline-block;
+        position: absolute;
+        @include horizontal-center;
+        input {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
+            width: 10rem;
+            &::-webkit-slider-runnable-track {
+                // ADD FOR MOZZILLA
+                box-shadow: $inner-glare;
+                border-radius: 10px;
+                height: 0.7rem;
+            }
+
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none; /* Override default look */
+                appearance: none;
+                background-color: $bright-bg-color;
+                box-shadow: $outer-glare;
+                height: 1rem;
+                width: 1rem;
+                margin-top: -2px;
+                border-radius: 10px;
+            }
+        }
+
+        label {
+            font-weight: map-get($font-weights, regular);
+            color: $text-color;
+            opacity: 0.5;
+        }
+    }
+
+    #start-btn {
+        display: block;
+        margin: 0 auto;
+        min-width: 100px;
+        min-height: 40px;
+        padding: 10px 40px;
+        position: absolute;
+        bottom: 0;
+        @include horizontal-center;
+
+        font-family: $primary-font;
+        font-weight: map-get($font-weights, medium);
+        font-size: map-get($font-sizes, large);
+        border-radius: 16px;
+        border: none;
+        background-color: $green-color;
+        box-shadow: 0px 0px 34px 0px $green-color;
+    }
+}
+
+.result {
+    display: none;
+
+    padding: 15px;
+    border-radius: 25px;
+
+    background-color: $dark-bg-color;
+}
+
+.custom-settings-popup {
+    position: absolute;
+    z-index: 100;
+
+    width: 90%;
+    min-height: 90%;
+    margin-top: 5%;
+    @include horizontal-center;
+    border-radius: $default-smaller-radius;
+    border: $default-border;
+    padding: $default-padding;
+
+    background-color: $dark-bg-color;
+
+    .guess-settings {
+        display: flex;
+        align-items: center;
+    }
+
+    .guess-sections {
+        display: flex;
+        gap: 20px;
+    }
+
+    .section-fields {
+        display: inline-block;
+        background-color: blue;
+        padding: 10px;
+        margin: 5px;
+    }
+
+    .guess-field {
+        display: inline-block;
+        background-color: white;
+        width: 30px;
+        height: 80px;
+        margin: 5px;
+    }
+
+    .guess-field:hover {
+        background-color: red;
+    }
+
+    .add-field-btn {
+        display: inline-block;
+        background-color: white;
+    }
+
+    .add-section-btn {
+        width: 25px;
+        height: 70px;
+        background-color: red;
+    }
+
+    .section-number-range {
+        text-align: center;
+    }
+
+    .section-number-range > input {
+        width: 30px;
+    }
+
+    .rewards-table td {
+        border: $default-border;
+        text-align: center;
+        min-width: 30px;
+    }
+}
+
+.time {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}

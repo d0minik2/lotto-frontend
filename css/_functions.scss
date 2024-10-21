@@ -1,0 +1,27 @@
+@mixin horizontal-center() {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@mixin vertical-center() {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@mixin center() {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes background-blur {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
