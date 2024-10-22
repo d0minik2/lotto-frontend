@@ -1,12 +1,40 @@
+@font-face {
+  font-family: "ApfelGrotezk";
+  src: url("../assets/ApfelGrotezk-Regular.woff2") format("woff2"), url("../assets/ApfelGrotezk-Regular.woff") format("woff");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "ApfelGrotezk";
+  src: url("../assets/ApfelGrotezk-Fett.woff2") format("woff2"), url("../assets/ApfelGrotezk-Fett.woff") format("woff");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "ApfelGrotezk";
+  src: url("../assets/ApfelGrotezk-Mittel.woff2") format("woff2"), url("../assets/ApfelGrotezk-Mittel.woff") format("woff");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "ApfelGrotezk";
+  src: url("../assets/ApfelGrotezk-Satt.woff2") format("woff2"), url("../assets/ApfelGrotezk-Satt.woff") format("woff");
+  font-weight: 900;
+}
 @keyframes background-blur {
-  0% {
+  0%, 100% {
     background-position: 0% 50%;
   }
   50% {
     background-position: 100% 50%;
   }
-  100% {
-    background-position: 0% 50%;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  180% {
+    transform: rotate(360deg);
   }
 }
 *, *:before, *:after {
@@ -59,16 +87,47 @@ input {
 }
 
 body {
-  background-color: #000000;
-  background: radial-gradient(circle, #000000, #464948), url(../assets/noise-texture.svg);
+  background-color: #080809;
+  background: radial-gradient(circle, #080809, #2a2a2f), url(../assets/noise-texture.svg);
   background-size: 200vw 200vh;
   background-attachment: fixed;
   animation: background-blur 20s ease infinite;
   color: #f2f2f2;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "ApfelGrotezk", Helvetica, Arial, sans-serif;
+}
+
+body::before {
+  content: " ";
+  position: absolute;
+  right: 180px;
+  bottom: 80px;
+  background-color: #2a2a2f;
+  width: 450px;
+  height: 450px;
+  border-radius: 100%;
+  filter: blur(50px);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+body::after {
+  content: " ";
+  position: absolute;
+  right: 550px;
+  bottom: 350px;
+  background-color: #2a2a2f;
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  filter: blur(50px);
+  opacity: 0.5;
+  z-index: -1;
+  transform-origin: bottom 305 right 405;
+  animation: spin 5s ease infinite;
 }
 
 nav {
+  display: none;
   position: absolute;
 }
 nav .top-horizontal-bar {
@@ -77,7 +136,7 @@ nav .top-horizontal-bar {
   top: 0;
 }
 nav .top-horizontal-bar h1 {
-  font-family: Helvetica, sans-serif;
+  font-family: "ApfelGrotezk", Helvetica, sans-serif;
   font-size: 60px;
 }
 nav .left-vertical-bar {
@@ -90,7 +149,7 @@ nav .left-vertical-bar * {
   transform: rotate(180deg);
 }
 nav .left-vertical-bar h2 {
-  font-family: Helvetica, sans-serif;
+  font-family: "ApfelGrotezk", Helvetica, sans-serif;
   font-size: 28px;
 }
 
@@ -115,16 +174,16 @@ main {
   color: #f2f2f2;
   border: none;
   font-weight: 400;
-  font-family: Helvetica, sans-serif;
+  font-family: "ApfelGrotezk", Helvetica, sans-serif;
   font-size: 28px;
 }
 .controls .lottery-type option {
   text-align: center;
-  background-color: #000000;
+  background-color: #080809;
 }
 .controls .lottery-type option:last-child {
-  background-color: #2426be;
-  font-weight: 700;
+  background-color: #c2746b;
+  font-weight: 500;
 }
 .controls .guess-settings {
   display: flex;
@@ -144,6 +203,13 @@ main {
   padding: 40px;
   border-radius: 50px;
   box-shadow: inset #cbcbd4 0px 0px 20px -10px;
+  background-color: rgba(8, 8, 9, 0.22);
+  transition: 0.3s;
+}
+.controls .guess-settings .guess section::before {
+  background-color: #000000;
+  width: 100%;
+  height: 100%;
 }
 .controls .guess-settings .guess select {
   font-size: 60px;
@@ -157,7 +223,7 @@ main {
           appearance: none;
   text-align: center;
   justify-content: center;
-  box-shadow: inset #000000 0px 0px 20px -10px, 0px 0px 26px 0px #cbcbd4;
+  box-shadow: inset #080809 0px 0px 20px -10px, 0px 0px 26px 0px #cbcbd4;
   transition: 0.3s;
 }
 .controls .guess-settings .guess select option {
@@ -168,14 +234,16 @@ main {
 }
 .controls .guess-settings .random-guess-btn {
   font-size: 60px;
-  display: block;
-  padding: 8px;
-  background-color: transparent;
+  display: flex;
+  padding: 12px;
+  background-color: rgba(8, 8, 9, 0.22);
   border-radius: 10px;
   border: 1px solid #cbcbd4;
   border-color: transparent;
+  box-shadow: inset #cbcbd4 0px 0px 20px -10px;
   width: 1.2em;
   text-align: center;
+  justify-content: center;
   transition: 0.3s;
 }
 .controls .guess-settings .random-guess-btn img {
@@ -230,8 +298,8 @@ main {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: 500;
+  font-family: "ApfelGrotezk", Helvetica, Arial, sans-serif;
+  font-weight: 700;
   font-size: 60px;
   border-radius: 16px;
   border: none;
@@ -257,6 +325,8 @@ main {
   border-radius: 10px;
   border: 1px solid #cbcbd4;
   padding: 40px;
+  -webkit-backdrop-filter: blur(15px);
+          backdrop-filter: blur(15px);
   background-color: #000000;
 }
 .custom-settings-popup .guess-settings {

@@ -1,3 +1,39 @@
+@font-face {
+    font-family: "ApfelGrotezk";
+    src:
+        url("../assets/ApfelGrotezk-Regular.woff2") format("woff2"),
+        url("../assets/ApfelGrotezk-Regular.woff") format("woff");
+
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "ApfelGrotezk";
+    src:
+        url("../assets/ApfelGrotezk-Fett.woff2") format("woff2"),
+        url("../assets/ApfelGrotezk-Fett.woff") format("woff");
+
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: "ApfelGrotezk";
+    src:
+        url("../assets/ApfelGrotezk-Mittel.woff2") format("woff2"),
+        url("../assets/ApfelGrotezk-Mittel.woff") format("woff");
+
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "ApfelGrotezk";
+    src:
+        url("../assets/ApfelGrotezk-Satt.woff2") format("woff2"),
+        url("../assets/ApfelGrotezk-Satt.woff") format("woff");
+
+    font-weight: 900;
+}
+
 @mixin horizontal-center() {
     left: 50%;
     transform: translateX(-50%);
@@ -15,13 +51,25 @@
 }
 
 @keyframes background-blur {
-    0% {
+    0%,
+    100% {
+        // background-size: 100%;
         background-position: 0% 50%;
     }
     50% {
+        // background-size: 120%;
         background-position: 100% 50%;
     }
-    100% {
-        background-position: 0% 50%;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    180% {
+        transform: rotate(360deg);
     }
 }
