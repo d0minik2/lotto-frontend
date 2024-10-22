@@ -9,6 +9,9 @@ $text-color: #f2f2f2;
 $accent-color: #c2746b;
 $green-color: #6bc395;
 
+$positive-color: $green-color;
+$negative-color: $accent-color;
+
 $primary-font: "ApfelGrotezk", Helvetica, Arial, sans-serif;
 $header-font: "ApfelGrotezk", Helvetica, sans-serif;
 $font-weights: (
@@ -45,40 +48,40 @@ body {
 
     color: $text-color;
     font-family: $primary-font;
-}
 
-body::before {
-    content: " ";
-    position: absolute;
-    right: 180px;
-    bottom: 80px;
-    background-color: $bg-color2;
-    width: 450px;
-    height: 450px;
-    border-radius: 100%;
-    // box-shadow: inset -7px -10px 31px -9px $bg-color;
-    filter: blur(50px);
-    opacity: 0.5;
+    &::before {
+        content: " ";
+        position: absolute;
+        right: 180px;
+        bottom: 80px;
+        background-color: $bg-color2;
+        width: 450px;
+        height: 450px;
+        border-radius: 100%;
+        // box-shadow: inset -7px -10px 31px -9px $bg-color;
+        filter: blur(50px);
+        opacity: 0.5;
 
-    z-index: -1;
-}
+        z-index: -1;
+    }
 
-body::after {
-    content: " ";
-    position: absolute;
-    right: 550px;
-    bottom: 350px;
-    background-color: $bg-color2;
-    width: 250px;
-    height: 250px;
-    border-radius: 100%;
-    // box-shadow: inset -7px -10px 31px -9px $bg-color;
-    filter: blur(50px);
-    opacity: 0.5;
-    z-index: -1;
+    &::after {
+        content: " ";
+        position: absolute;
+        right: 550px;
+        bottom: 350px;
+        background-color: $bg-color2;
+        width: 250px;
+        height: 250px;
+        border-radius: 100%;
+        // box-shadow: inset -7px -10px 31px -9px $bg-color;
+        filter: blur(50px);
+        opacity: 0.5;
+        z-index: -1;
 
-    transform-origin: bottom 80 + (450/2) right 180 + (450/2);
-    animation: spin 5s ease infinite;
+        // transform-origin: bottom 80 + (450/2) px right 180 + (450/2) px;
+        // animation: spin 5s ease infinite;
+    }
 }
 
 nav {
@@ -113,8 +116,17 @@ nav {
 }
 
 main {
-    padding: 20px;
+    position: relative;
+    padding: $default-padding;
     min-height: 100vh;
+
+    &::after {
+        content: " ";
+        width: 100vw;
+        height: 100vh;
+        background-color: #6bc395;
+        z-index: 100000;
+    }
 }
 
 .controls {
@@ -123,6 +135,10 @@ main {
     min-height: 500px;
     @include center;
     padding-top: 40px;
+
+    .started & {
+        visibility: hidden;
+    }
 
     .lottery-type {
         display: block;
@@ -162,11 +178,11 @@ main {
                 padding: $default-padding;
                 // border: $default-border;
                 border-radius: $default-radius;
-
                 box-shadow: $inner-glare;
-
                 background-color: rgba($bg-color, 0.22);
+
                 transition: $tranistion-time;
+
                 &::before {
                     background-color: $dark-bg-color;
                     width: 100%;
@@ -174,6 +190,7 @@ main {
                 }
             }
             select {
+                position: relative;
                 font-size: map-get($font-sizes, large);
                 width: 1.2em;
                 height: 2em;
@@ -187,7 +204,15 @@ main {
                 box-shadow: $inner-shadow, $outer-glare;
                 transition: $tranistion-time;
                 option {
+                    transition: $tranistion-time;
                     font-size: map-get($font-sizes, small);
+                }
+
+                &:enabled:hover {
+                    // top: -5px;
+                    // border: $default-border;
+                    // border-color: $green-color;
+                    box-shadow: $outer-glare;
                 }
             }
         }
@@ -204,7 +229,7 @@ main {
             // margin-left: 8px;
             background-color: rgba($bg-color, 0.22);
             border-radius: $default-smaller-radius;
-            border: $default-border;
+            // border: $default-border;
             border-color: transparent;
             box-shadow: $inner-glare;
             width: 1.2em;
@@ -252,6 +277,7 @@ main {
             }
         }
 
+        output,
         label {
             font-weight: map-get($font-weights, regular);
             color: $text-color;
@@ -271,7 +297,7 @@ main {
 
         font-family: $primary-font;
         font-weight: map-get($font-weights, bold);
-        font-size: map-get($font-sizes, large);
+        font-size: map-get($font-sizes, medium);
         border-radius: 16px;
         border: none;
         background-color: $green-color;
@@ -282,10 +308,75 @@ main {
 .result {
     display: none;
 
-    padding: 15px;
-    border-radius: 25px;
+    width: 50%;
+    position: absolute;
+    right: $default-padding;
+    @include vertical-center;
+    padding: $default-padding;
+    border-radius: $default-radius;
+    box-shadow: $inner-glare;
+    background-color: rgba($bg-color, 0.4);
 
-    background-color: $dark-bg-color;
+    transition: $tranistion-time;
+
+    h4 {
+        font-size: map-get($font-sizes, small);
+    }
+
+    p {
+        font-size: map-get($font-sizes, medium);
+
+        &.total-balance.positive {
+            color: $positive-color;
+        }
+
+        &.total-balance.negative {
+            color: $negative-color;
+        }
+    }
+}
+
+.earth-anim {
+    display: none;
+    position: absolute;
+    width: 50%;
+    overflow: visible;
+    text-align: center;
+    @include vertical-center;
+
+    svg {
+        width: 500px;
+        overflow: visible;
+    }
+
+    .space {
+        // position: absolute;
+        overflow: visible;
+        transform-origin: center;
+        transform: rotate(90deg);
+        /*animation: spin 20s ease-in-out 0 infinite;*/
+        animation-name: spin;
+        animation-duration: 4s;
+        animation-iteration-count: infinite;
+        // animation-delay: 1s;
+        animation-timing-function: cubic-bezier(0.515, 1.49, 0.54, -0.545);
+        animation-fill-mode: forwards;
+        // -webkit-animation-fill-mode: forwards;
+    }
+
+    .moon {
+        box-shadow: $outer-glare;
+        // filter: blur(5px);
+    }
+
+    .sun {
+        // box-shadow: 0px 0px 26px 0px #f5df00;
+        // filter: blur(5px);
+    }
+
+    .started & {
+        display: block;
+    }
 }
 
 .custom-settings-popup {

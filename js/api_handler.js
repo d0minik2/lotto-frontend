@@ -53,8 +53,8 @@ function update_html(data) {
 async function init_simulation() {
     // POST on api
     const postURL = apiURL + UID
-    const lottery_name = $("#lottery-type").val()
 
+    const lottery_name = $("#lottery-type").val();
     const body = {
         "lottery_name": lottery_name,
         "rounds_per_week": parseInt($("#rounds-per-week").val())
@@ -65,42 +65,46 @@ async function init_simulation() {
     if (!(guess === undefined)) {
         body["guess"] = guess
     } else if (guess === false) {
+        STARTED = false
         return false
+    } else {
+        if (lottery_name == "CUSTOM") {
+            body["custom"] = true
+            body["custom_guess_table"] = get_guess_table()
+            body["custom_reward_table"] = get_price_table()
+            body["custom_guess_price"] = get_guess_price()
+        }
+
+
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(body)
+        }
+
+        await fetch(postURL, options)
+            .then(response => {
+                STARTED = true
+                return response.json();
+            })
+            .then(data => {
+                true_guess = data["guess"]
+                if (guess === undefined) {
+                    set_guess(true_guess)
+                }
+                STARTED = true
+                return true
+            })
+            .catch(error => {
+                console.error('Error:', error)
+                STARTED = false
+                return false
+            })
     }
 
-    if (lottery_name == "CUSTOM") {
-        body["custom"] = true
-        body["custom_guess_table"] = get_guess_table()
-        body["custom_reward_table"] = get_price_table()
-        body["custom_guess_price"] = get_guess_price()
-    }
 
-
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": 'application/json'
-        },
-        body: JSON.stringify(body)
-    }
-
-    await fetch(postURL, options)
-        .then(response => {
-
-            return response.json();
-        })
-        .then(data => {
-            true_guess = data["guess"]
-            if (guess === undefined) {
-                set_guess(true_guess)
-            }
-
-            disable_guess()
-            $(".result").css("display", "block")
-        })
-        .catch(error => {
-            console.error('Error:', error)
-        })
 }
 
 
@@ -120,6 +124,7 @@ async function call_simulation() {
         })
         .then(data => {
             update_html(data)
+            on_update()
         })
         .catch(error => {
             console.error('Error:', error)
@@ -128,21 +133,27 @@ async function call_simulation() {
 
 
 async function start_simulation() {
-    time_start()
-
-
     // INIT
     if (!paused) {
         // TODO liczenie czasu
         await init_simulation()
-        WON = false
+
     } else {
         paused = false
     }
 
-    while (!WON && !paused) {
-        await call_simulation()
+    if (STARTED) {
+        WON = false
+        time_start()
+        on_start()
+
+        while (!WON && !paused) {
+            await call_simulation()
+        }
     }
+
+
+
 }
 
 function pause_simulation() {
@@ -153,6 +164,7 @@ function pause_simulation() {
 
 const apiURL = "http://dominik.chiptric.com/api/"
 let WON = false
+let STARTED = false
 let paused = false
 let time_started
 const UID = generate_uid()
