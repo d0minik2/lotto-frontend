@@ -44,6 +44,7 @@ function update_html(data) {
 
     if (data.top_price_wins > 0) {
         WON = true
+        on_win()
     }
 
     update_time_html(calculate_avg_time(data.years_passed))
@@ -136,6 +137,7 @@ async function start_simulation() {
     // INIT
     if (!paused) {
         // TODO liczenie czasu
+        WON = false
         await init_simulation()
 
     } else {
@@ -151,10 +153,20 @@ async function start_simulation() {
             await call_simulation()
         }
     }
+}
 
 
+function reset_simulation() {
+    if (confirm("Are you sure you want to reset the simulation?")) {
+        WON = true
+        STARTED = false
+        paused = false
+
+        on_reset()
+    }
 
 }
+
 
 function pause_simulation() {
     paused = true

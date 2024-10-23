@@ -1,3 +1,7 @@
+*[class$=btn] {
+  cursor: pointer;
+}
+
 @font-face {
   font-family: "ApfelGrotezk";
   src: url("../assets/ApfelGrotezk-Regular.woff2") format("woff2"), url("../assets/ApfelGrotezk-Regular.woff") format("woff");
@@ -44,18 +48,18 @@
 }
 @keyframes slide-right {
   from {
-    transform: translateX(100vw);
+    right: -100vw;
   }
   to {
-    transform: translateX(0);
+    right: 0;
   }
 }
 @keyframes slide-left {
   from {
-    transform: translateX(-100vw);
+    left: -100vw;
   }
   to {
-    transform: translateX(0);
+    left: 0;
   }
 }
 *, *:before, *:after {
@@ -115,6 +119,7 @@ body {
   animation: background-blur 20s ease infinite;
   color: #f2f2f2;
   font-family: "ApfelGrotezk", Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
 }
 body::before {
   content: " ";
@@ -191,9 +196,11 @@ main::after {
   top: 50%;
   transform: translate(-50%, -50%);
   padding-top: 40px;
+  transition: 0.3s;
 }
 .started .controls {
-  visibility: hidden;
+  opacity: 0;
+  top: -200px;
 }
 .controls .lottery-type {
   display: block;
@@ -338,6 +345,7 @@ main::after {
   border: none;
   background-color: #6bc395;
   box-shadow: 0px 0px 34px 0px #6bc395;
+  cursor: pointer;
 }
 
 .result {
@@ -358,8 +366,10 @@ main::after {
 }
 .started .result {
   display: flex;
+  animation-name: slide-right;
   animation-duration: 1s;
   animation-iteration-count: 1;
+  animation-timing-function: ease-out;
 }
 .result h4 {
   font-size: 17px;
@@ -377,12 +387,40 @@ main::after {
 .result p.total-balance.negative {
   color: #c2746b;
 }
+.won .result p.top-price-wins {
+  color: #eed461;
+  font-weight: 700;
+}
+
+.reset-btn {
+  display: none;
+  margin: 0 auto;
+  min-width: 100px;
+  min-height: 40px;
+  padding: 10px 40px;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "ApfelGrotezk", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  border-radius: 16px;
+  border: none;
+  background-color: #c2746b;
+  box-shadow: 0px 0px 34px 0px #c2746b;
+  cursor: pointer;
+}
+.started .reset-btn {
+  display: block;
+}
 
 .earth-anim {
   display: none;
   position: absolute;
   width: 50%;
   overflow: visible;
+  left: 0;
   text-align: center;
   top: 50%;
   transform: translateY(-50%);
@@ -403,18 +441,20 @@ main::after {
   animation-timing-function: cubic-bezier(0.515, 1.49, 0.54, -0.545);
   animation-fill-mode: forwards;
 }
-.earth-anim .moon {
-  box-shadow: 0px 0px 26px 0px #cbcbd4;
+.won .earth-anim .space {
+  animation-iteration-count: 1;
 }
 .started .earth-anim {
   display: block;
+  animation-name: slide-left;
   animation-duration: 1s;
-  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
 }
 
 .custom-settings-popup {
   position: absolute;
   z-index: 100;
+  min-height: 70vh;
   width: 90%;
   margin-top: 5%;
   left: 50%;
@@ -428,13 +468,24 @@ main::after {
 }
 .custom-settings-popup .exit-btn {
   position: absolute;
+  width: 50px;
+  height: 50px;
   right: 40px;
   top: 40px;
   font-size: 60px;
+  background-image: url("../assets/x-lg.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .custom-settings-popup h4 {
+  display: inline;
   font-size: 28px;
   margin: 20px 0;
+}
+.custom-settings-popup p {
+  display: inline;
+  font-size: 17px;
 }
 .custom-settings-popup .guess-settings {
   display: flex;
@@ -448,6 +499,8 @@ main::after {
   gap: 40px;
   margin: 10px;
   padding: 40px;
+  border: 1px solid #cbcbd4;
+  border-style: dashed;
   border-radius: 50px;
   box-shadow: inset #cbcbd4 0px 0px 20px -10px;
   background-color: rgba(8, 8, 9, 0.22);
@@ -478,9 +531,19 @@ main::after {
   text-align: center;
   justify-content: center;
   box-shadow: inset #080809 0px 0px 20px -10px, 0px 0px 26px 0px #cbcbd4;
+  transition: 0.3s;
+  background-position: center;
 }
 .custom-settings-popup .guess-settings .guess-sections .guess-section .section-fields .guess-field:hover {
-  background-color: red;
+  border: 1px solid #cbcbd4;
+  border-color: #c2746b;
+  border-width: 3px;
+  background-image: url("../assets/trash.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  cursor: pointer;
 }
 .custom-settings-popup .guess-settings .guess-sections .guess-section .section-number-range {
   text-align: center;
@@ -498,24 +561,48 @@ main::after {
 .custom-settings-popup .guess-settings .guess-sections .guess-section .add-field-btn {
   display: inline-block;
   box-shadow: inset #cbcbd4 0px 0px 20px -10px;
-  padding: 10px;
+  width: 30px;
+  height: 30px;
   border-radius: 50px;
+  border: 1px solid #cbcbd4;
   font-weight: 400;
   font-size: 28px;
+  background-image: url("../assets/plus.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: 0.3s;
+}
+.custom-settings-popup .guess-settings .guess-sections .guess-section .add-field-btn:hover {
+  border: 1px solid #cbcbd4;
+  border-color: #6bc395;
+  border-width: 3px;
 }
 .custom-settings-popup .guess-settings .add-section-btn {
-  padding: 30px 15px;
+  display: block;
+  width: 1.2em;
+  height: 2em;
   box-shadow: inset #cbcbd4 0px 0px 20px -10px;
   border-radius: 10px;
+  border: 1px solid #cbcbd4;
+  border-style: dashed;
   font-weight: 700;
   font-size: 28px;
-  text-align: center;
+  background-image: url("../assets/plus.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: 0.3s;
+}
+.custom-settings-popup .guess-settings .add-section-btn:hover {
+  border: 1px solid #cbcbd4;
+  border-color: #6bc395;
+  border-width: 3px;
 }
 .custom-settings-popup .rewards-table {
-  border-radius: 10px;
+  margin: 8px;
 }
 .custom-settings-popup .rewards-table td {
-  border: 1px solid #cbcbd4;
   text-align: center;
   min-width: 30px;
 }
@@ -527,8 +614,17 @@ main::after {
   border-radius: 10px;
   text-align: center;
 }
+.custom-settings-popup .rewards-table td[class^=td], .custom-settings-popup .rewards-table td[class^=inp] {
+  border: 1px solid #cbcbd4;
+  border-style: dashed;
+  border-radius: 10px;
+  padding: 8px;
+}
 .custom-settings-popup .guess-price {
   margin: 20px 0;
+}
+.custom-settings-popup .guess-price p {
+  font-size: 28px;
 }
 .custom-settings-popup .guess-price input {
   min-width: 50px;
@@ -543,4 +639,5 @@ main::after {
   position: fixed;
   right: 10px;
   bottom: 10px;
+  opacity: 0.5;
 }/*# sourceMappingURL=main.css.map */

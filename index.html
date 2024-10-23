@@ -7,6 +7,7 @@
     <title>MiToLotto</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@thumbmarkjs/thumbmarkjs/dist/thumbmark.umd.js"></script>
+
     <script src="js\jq.js"></script>
     <script src="js\api_handler.js"></script>
     <script src="js\guess.js"></script>
@@ -61,21 +62,28 @@
 
 
 
-            <button id="start-btn" onclick="start_simulation()">Start</button>
+            <button id="start-btn" class="start-btn" onclick="start_simulation()">Start</button>
             <!-- <button id="pause-btn" onclick="pause_simulation()">Pause</button> -->
         </div>
 
         <div class="custom-settings-popup" style="display: none">
-            <div class="exit-btn">X</div>
+            <div class="exit-btn"> </div>
 
             <h4>Guess format</h4>
             <div class="guess-settings">
                 <div class="guess-sections">
                 </div>
-                <div class="add-section-btn">+</div>
+                <div class="add-section-btn"></div>
             </div>
 
-            <h4>Table of rewards (price for number of correct guesses in each section)</h4>
+            <div class="guess-price">
+                <p>Ticket price: <input id="input-guess-price" type="number" min="0" step="any" value="1"></p>
+            </div>
+
+
+            <h4>Table of rewards <p>(reward for number of correct guesses in each section)</p>
+            </h4>
+
             <table class="rewards-table">
                 <tr>
                     <th>Number of correct guesses in each section</th>
@@ -83,9 +91,7 @@
                 </tr>
             </table>
 
-            <div class="guess-price">
-                <p>Ticket price: <input id="input-guess-price" type="number" min="0" step="any" value="1"></p>
-            </div>
+
         </div>
 
         <div class="result">
@@ -111,6 +117,8 @@
         <div class="earth-anim">
 
         </div>
+
+        <button class="reset-btn" onclick="reset_simulation()">Reset</button>
 
         <div class="time">
             average time <i>-</i> ms per year

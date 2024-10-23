@@ -38,7 +38,7 @@ function add_section(fields = 1, range_min = 1, range_max = 10) {
 
     const section_fields = $("<div>").addClass("section-fields")
 
-    const add_field_btn = $("<div>").addClass("add-field-btn").text("+")
+    const add_field_btn = $("<div>").addClass("add-field-btn").text("")
 
     section.append(number_range).append(section_fields).append(add_field_btn)
     $(".guess-sections").append(section)
@@ -182,6 +182,8 @@ $(document).ready(function () {
     add_custom_option()
     add_section()
 
+    let VAL_CHANGE = false
+
     $(".add-section-btn").on("click", function () {
         add_section()
     })
@@ -191,6 +193,18 @@ $(document).ready(function () {
         load_guess("CUSTOM")
         hide_custom_settings()
     })
+
+    $(".lottery-type").on("click", function () {
+        if (VAL_CHANGE) {
+            if ($(".lottery-type").val() == "CUSTOM") {
+                show_custom_settings()
+            }
+        }
+        VAL_CHANGE = !VAL_CHANGE
+
+    })
 })
+
+
 
 // lotteries["CUSTOM"] = guess_table

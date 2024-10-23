@@ -121,6 +121,7 @@ $(document).ready(function () {
         if ($(this).val() == "CUSTOM") {
             show_custom_settings()
         } else {
+            VAL_CHANGE = false
             hide_custom_settings()
             load_guess($(this).val())
         }

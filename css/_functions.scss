@@ -1,3 +1,7 @@
+*[class$="btn"] {
+    cursor: pointer;
+}
+
 @font-face {
     font-family: "ApfelGrotezk";
     src:
@@ -50,6 +54,13 @@
     transform: translate(-50%, -50%);
 }
 
+@mixin icon-bg($icon-url) {
+    background-image: url($icon-url);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 @keyframes background-blur {
     0%,
     100% {
@@ -83,18 +94,18 @@
 
 @keyframes slide-right {
     from {
-        transform: translateX(100vw);
+        right: -100vw;
     }
     to {
-        transform: translateX(0);
+        right: 0;
     }
 }
 
 @keyframes slide-left {
     from {
-        transform: translateX(-100vw);
+        left: -100vw;
     }
     to {
-        transform: translateX(0);
+        left: 0;
     }
 }

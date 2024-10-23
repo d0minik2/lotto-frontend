@@ -7,8 +7,17 @@ function disable_inputs() {
     $(".random-guess-checkbox").prop('disabled', true)
     $(".rounds-per-week-input").prop('disabled', true)
     $(".lottery-type").prop('disabled', true)
+}
+
+
+function enable_inputs() {
+    enable_guess()
+    $(".random-guess-checkbox").prop('disabled', false)
+    $(".rounds-per-week-input").prop('disabled', false)
+    $(".lottery-type").prop('disabled', false)
 
 }
+
 
 function balance_update() {
     balance_p = $(".total-balance")
@@ -25,7 +34,7 @@ function balance_update() {
 }
 
 function on_start() {
-    $("main").addClass("started")
+    $("main").removeClass("won").addClass("started")
 
     disable_inputs()
     show_result()
@@ -35,6 +44,16 @@ function on_start() {
 
 function on_update() {
     balance_update()
+}
+
+function on_reset() {
+    enable_inputs()
+
+    $("main").removeClass("started").removeClass("won")
+}
+
+function on_win() {
+    $("main").addClass("won")
 }
 
 $(document).ready(function () {

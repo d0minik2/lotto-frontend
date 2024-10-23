@@ -11,6 +11,7 @@ $green-color: #6bc395;
 
 $positive-color: $green-color;
 $negative-color: #c2746b;
+$won-color: #eed461;
 
 $primary-font: "ApfelGrotezk", Helvetica, Arial, sans-serif;
 $header-font: "ApfelGrotezk", Helvetica, sans-serif;
@@ -48,6 +49,8 @@ body {
 
     color: $text-color;
     font-family: $primary-font;
+
+    overflow-x: hidden;
 
     &::before {
         content: " ";
@@ -135,9 +138,15 @@ main {
     min-height: 500px;
     @include center;
     padding-top: 40px;
+    transition: $tranistion-time;
 
     .started & {
-        visibility: hidden;
+        opacity: 0;
+        top: -200px;
+        // visibility: hidden;
+
+        // top: 50%;
+        // top: 250px;
     }
 
     .lottery-type {
@@ -302,6 +311,7 @@ main {
         border: none;
         background-color: $green-color;
         box-shadow: 0px 0px 34px 0px $green-color;
+        cursor: pointer;
     }
 }
 
@@ -326,10 +336,11 @@ main {
 
     .started & {
         display: flex;
-        // animation-name: slide-right;
+        animation-name: slide-right;
         animation-duration: 1s;
         // animation-delay: 0.5s;
         animation-iteration-count: 1;
+        animation-timing-function: ease-out;
     }
 
     h4 {
@@ -352,6 +363,34 @@ main {
         &.total-balance.negative {
             color: $negative-color;
         }
+        .won &.top-price-wins {
+            color: $won-color;
+            font-weight: map-get($font-weights, bold);
+        }
+    }
+}
+
+.reset-btn {
+    display: none;
+    margin: 0 auto;
+    min-width: 100px;
+    min-height: 40px;
+    padding: 10px 40px;
+    position: absolute;
+    bottom: $default-padding;
+    @include horizontal-center;
+
+    font-family: $primary-font;
+    font-weight: map-get($font-weights, bold);
+    font-size: map-get($font-sizes, medium);
+    border-radius: 16px;
+    border: none;
+    background-color: $negative-color;
+    box-shadow: 0px 0px 34px 0px $negative-color;
+    cursor: pointer;
+
+    .started & {
+        display: block;
     }
 }
 
@@ -360,6 +399,7 @@ main {
     position: absolute;
     width: 50%;
     overflow: visible;
+    left: 0;
     text-align: center;
     @include vertical-center;
     transition: $tranistion-time;
@@ -382,31 +422,25 @@ main {
         animation-timing-function: cubic-bezier(0.515, 1.49, 0.54, -0.545);
         animation-fill-mode: forwards;
         // -webkit-animation-fill-mode: forwards;
-    }
 
-    .moon {
-        box-shadow: $outer-glare;
-        // filter: blur(5px);
-    }
-
-    .sun {
-        // box-shadow: 0px 0px 26px 0px #f5df00;
-        // filter: blur(5px);
+        .won & {
+            animation-iteration-count: 1;
+        }
     }
 
     .started & {
         display: block;
-        // animation-name: slide-left;
+        animation-name: slide-left;
         animation-duration: 1s;
         // animation-delay: 0.5s;
-        animation-iteration-count: 1;
+        animation-timing-function: ease-out;
     }
 }
 
 .custom-settings-popup {
     position: absolute;
     z-index: 100;
-
+    min-height: 70vh;
     width: 90%;
     margin-top: 5%;
     @include horizontal-center;
@@ -418,15 +452,25 @@ main {
 
     .exit-btn {
         position: absolute;
+        width: 50px;
+        height: 50px;
         right: $default-padding;
         top: $default-padding;
 
         font-size: map-get($font-sizes, large);
+
+        @include icon-bg("../assets/x-lg.svg");
     }
 
     h4 {
+        display: inline;
         font-size: map-get($font-sizes, medium);
         margin: 20px 0;
+    }
+
+    p {
+        display: inline;
+        font-size: map-get($font-sizes, small);
     }
 
     .guess-settings {
@@ -443,7 +487,8 @@ main {
                 gap: $default-padding;
                 margin: 10px;
                 padding: $default-padding;
-                // border: $default-border;
+                border: $default-border;
+                border-style: dashed;
                 border-radius: $default-radius;
                 box-shadow: $inner-glare;
                 background-color: rgba($bg-color, 0.22);
@@ -476,9 +521,18 @@ main {
                         text-align: center;
                         justify-content: center;
                         box-shadow: $inner-shadow, $outer-glare;
+                        transition: $tranistion-time;
+
+                        background-position: center;
 
                         &:hover {
-                            background-color: red;
+                            // background-color: ;
+                            border: $default-border;
+                            border-color: $negative-color;
+                            border-width: 3px;
+                            @include icon-bg("../assets/trash.svg");
+                            background-size: 60%;
+                            cursor: pointer;
                         }
                     }
                 }
@@ -499,29 +553,51 @@ main {
                 .add-field-btn {
                     display: inline-block;
                     box-shadow: $inner-glare;
-                    padding: 10px;
+                    width: 30px;
+                    height: 30px;
                     border-radius: $default-radius;
+                    border: $default-border;
 
                     font-weight: map-get($font-weights, regular);
                     font-size: map-get($font-sizes, medium);
+
+                    @include icon-bg("../assets/plus.svg");
+                    transition: $tranistion-time;
+
+                    &:hover {
+                        border: $default-border;
+                        border-color: $green-color;
+                        border-width: 3px;
+                    }
                 }
             }
         }
         .add-section-btn {
-            padding: 30px 15px;
+            display: block;
+            width: 1.2em;
+            height: 2em;
             box-shadow: $inner-glare;
             border-radius: $default-smaller-radius;
+            border: $default-border;
+            border-style: dashed;
+
             font-weight: map-get($font-weights, bold);
             font-size: map-get($font-sizes, medium);
-            text-align: center;
+            @include icon-bg("../assets/plus.svg");
+
+            transition: $tranistion-time;
+
+            &:hover {
+                border: $default-border;
+                border-color: $green-color;
+                border-width: 3px;
+            }
         }
     }
 
     .rewards-table {
-        border-radius: $default-smaller-radius;
+        margin: 8px;
         td {
-            border: $default-border;
-
             text-align: center;
             min-width: 30px;
             input {
@@ -532,11 +608,23 @@ main {
                 border-radius: $default-smaller-radius;
                 text-align: center;
             }
+
+            &[class^="td"],
+            &[class^="inp"] {
+                border: $default-border;
+                border-style: dashed;
+                border-radius: 10px;
+                padding: 8px;
+            }
         }
     }
 
     .guess-price {
         margin: 20px 0;
+
+        p {
+            font-size: map-get($font-sizes, medium);
+        }
 
         input {
             min-width: 50px;
@@ -553,4 +641,5 @@ main {
     position: fixed;
     right: 10px;
     bottom: 10px;
+    opacity: 0.5;
 }
