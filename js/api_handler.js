@@ -121,7 +121,13 @@ async function call_simulation() {
     // TODO add speed param
 
     const options = {
-        method: "GET",
+        method: "PATCH",
+        headers: {
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify({
+            "speed": parseInt($("#simulation-speed").val())
+        })
     }
 
     await fetch(postURL, options)

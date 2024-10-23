@@ -415,6 +415,30 @@ main::after {
   display: block;
 }
 
+.simulation-speed-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 10rem;
+}
+.simulation-speed-input::-webkit-slider-runnable-track {
+  box-shadow: inset #cbcbd4 0px 0px 20px -10px;
+  border-radius: 10px;
+  height: 0.7rem;
+}
+.simulation-speed-input::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  background-color: #cbcbd4;
+  box-shadow: 0px 0px 26px 0px #cbcbd4;
+  height: 1rem;
+  width: 1rem;
+  margin-top: -2px;
+  border-radius: 10px;
+}
+
 .earth-anim {
   display: none;
   position: absolute;
