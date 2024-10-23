@@ -64,7 +64,7 @@ async function init_simulation() {
 
     const guess = get_guess()
     let correct = true
-    if (!(guess === undefined) && (guess != false)) {
+    if (!(guess === undefined) && (guess !== false) && (guess !== true)) {
         body["guess"] = guess
     } else if (guess === false) {
         correct = false
