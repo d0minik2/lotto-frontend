@@ -63,46 +63,51 @@ async function init_simulation() {
 
 
     const guess = get_guess()
-    if (!(guess === undefined)) {
+    let correct = true
+    if (!(guess === undefined) && (guess != false)) {
         body["guess"] = guess
     } else if (guess === false) {
+        correct = false
         STARTED = false
         return false
     }
-    if (lottery_name == "CUSTOM") {
-        body["custom"] = true
-        body["custom_guess_table"] = get_guess_table()
-        body["custom_reward_table"] = get_price_table()
-        body["custom_guess_price"] = get_guess_price()
+    if (correct) {
+        if (lottery_name == "CUSTOM") {
+            body["custom"] = true
+            body["custom_guess_table"] = get_guess_table()
+            body["custom_reward_table"] = get_price_table()
+            body["custom_guess_price"] = get_guess_price()
+        }
+
+
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(body)
+        }
+
+        await fetch(postURL, options)
+            .then(response => {
+                STARTED = true
+                return response.json();
+            })
+            .then(data => {
+                true_guess = data["guess"]
+                if (guess === undefined) {
+                    set_guess(true_guess)
+                }
+                STARTED = true
+                return true
+            })
+            .catch(error => {
+                console.error('Error:', error)
+                STARTED = false
+                return false
+            })
     }
 
-
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": 'application/json'
-        },
-        body: JSON.stringify(body)
-    }
-
-    await fetch(postURL, options)
-        .then(response => {
-            STARTED = true
-            return response.json();
-        })
-        .then(data => {
-            true_guess = data["guess"]
-            if (guess === undefined) {
-                set_guess(true_guess)
-            }
-            STARTED = true
-            return true
-        })
-        .catch(error => {
-            console.error('Error:', error)
-            STARTED = false
-            return false
-        })
 
 
 

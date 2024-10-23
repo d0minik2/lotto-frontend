@@ -64,7 +64,7 @@ function get_guess() {
                     guess.push(n)
                 } else {
                     correct = false
-                    return
+                    return false
                 }
 
             })
@@ -75,6 +75,7 @@ function get_guess() {
         alert("Liczby nie mogą się powtarzać w tej samej sekcji.")
         return false
     }
+    return true
 
 }
 
