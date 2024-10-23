@@ -35,11 +35,11 @@ $(window).bind('beforeunload', function () {
 
 
 function update_html(data) {
-    $(".games-played").text(data.games_played)
-    $(".years-passed").text(data.years_passed)
-    $(".money-earned").text(data.money_earned)
-    $(".money-spent").text(data.money_spent)
-    $(".total-balance").text(data.total_balance)
+    $(".games-played").text(data.games_played.toLocaleString())
+    $(".years-passed").text(data.years_passed.toLocaleString())
+    $(".money-earned").text(data.money_earned.toLocaleString())
+    $(".money-spent").text(data.money_spent.toLocaleString())
+    $(".total-balance").text(data.total_balance.toLocaleString())
     $(".top-price-wins").text(data.top_price_wins)
 
     if (data.top_price_wins > 0) {
@@ -67,42 +67,42 @@ async function init_simulation() {
     } else if (guess === false) {
         STARTED = false
         return false
-    } else {
-        if (lottery_name == "CUSTOM") {
-            body["custom"] = true
-            body["custom_guess_table"] = get_guess_table()
-            body["custom_reward_table"] = get_price_table()
-            body["custom_guess_price"] = get_guess_price()
-        }
-
-
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(body)
-        }
-
-        await fetch(postURL, options)
-            .then(response => {
-                STARTED = true
-                return response.json();
-            })
-            .then(data => {
-                true_guess = data["guess"]
-                if (guess === undefined) {
-                    set_guess(true_guess)
-                }
-                STARTED = true
-                return true
-            })
-            .catch(error => {
-                console.error('Error:', error)
-                STARTED = false
-                return false
-            })
     }
+    if (lottery_name == "CUSTOM") {
+        body["custom"] = true
+        body["custom_guess_table"] = get_guess_table()
+        body["custom_reward_table"] = get_price_table()
+        body["custom_guess_price"] = get_guess_price()
+    }
+
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(body)
+    }
+
+    await fetch(postURL, options)
+        .then(response => {
+            STARTED = true
+            return response.json();
+        })
+        .then(data => {
+            true_guess = data["guess"]
+            if (guess === undefined) {
+                set_guess(true_guess)
+            }
+            STARTED = true
+            return true
+        })
+        .catch(error => {
+            console.error('Error:', error)
+            STARTED = false
+            return false
+        })
+
 
 
 }

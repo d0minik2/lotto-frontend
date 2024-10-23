@@ -6,11 +6,11 @@ $bg-color2: #2a2a2f;
 $dark-bg-color: #000000;
 $bright-bg-color: #cbcbd4;
 $text-color: #f2f2f2;
-$accent-color: #c2746b;
+$accent-color: #6bc395;
 $green-color: #6bc395;
 
 $positive-color: $green-color;
-$negative-color: $accent-color;
+$negative-color: #c2746b;
 
 $primary-font: "ApfelGrotezk", Helvetica, Arial, sans-serif;
 $header-font: "ApfelGrotezk", Helvetica, sans-serif;
@@ -308,6 +308,10 @@ main {
 .result {
     display: none;
 
+    flex-direction: column;
+
+    gap: 5px;
+
     width: 50%;
     position: absolute;
     right: $default-padding;
@@ -318,13 +322,28 @@ main {
     background-color: rgba($bg-color, 0.4);
 
     transition: $tranistion-time;
+    z-index: 3;
+
+    .started & {
+        display: flex;
+        // animation-name: slide-right;
+        animation-duration: 1s;
+        // animation-delay: 0.5s;
+        animation-iteration-count: 1;
+    }
 
     h4 {
         font-size: map-get($font-sizes, small);
+
+        &:not(:first-child) {
+            margin-top: 15px;
+        }
     }
 
     p {
         font-size: map-get($font-sizes, medium);
+
+        display: block;
 
         &.total-balance.positive {
             color: $positive-color;
@@ -343,6 +362,7 @@ main {
     overflow: visible;
     text-align: center;
     @include vertical-center;
+    transition: $tranistion-time;
 
     svg {
         width: 500px;
@@ -376,6 +396,10 @@ main {
 
     .started & {
         display: block;
+        // animation-name: slide-left;
+        animation-duration: 1s;
+        // animation-delay: 0.5s;
+        animation-iteration-count: 1;
     }
 }
 
@@ -384,73 +408,149 @@ main {
     z-index: 100;
 
     width: 90%;
-    min-height: 90%;
     margin-top: 5%;
     @include horizontal-center;
     border-radius: $default-smaller-radius;
-    border: $default-border;
+    box-shadow: $inner-glare;
     padding: $default-padding;
-    backdrop-filter: blur(15px);
+    background-color: rgba($bg-color, 0.4);
+    backdrop-filter: blur(50px);
 
-    background-color: $dark-bg-color;
+    .exit-btn {
+        position: absolute;
+        right: $default-padding;
+        top: $default-padding;
+
+        font-size: map-get($font-sizes, large);
+    }
+
+    h4 {
+        font-size: map-get($font-sizes, medium);
+        margin: 20px 0;
+    }
 
     .guess-settings {
         display: flex;
         align-items: center;
+
+        .guess-sections {
+            display: flex;
+            flex-wrap: wrap;
+
+            .guess-section {
+                // display: flex;
+
+                gap: $default-padding;
+                margin: 10px;
+                padding: $default-padding;
+                // border: $default-border;
+                border-radius: $default-radius;
+                box-shadow: $inner-glare;
+                background-color: rgba($bg-color, 0.22);
+
+                transition: $tranistion-time;
+
+                &::before {
+                    background-color: $dark-bg-color;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .section-fields {
+                    display: inline-flex;
+                    gap: 15px;
+                    // background-color: blue;
+                    padding: 10px;
+                    margin: 5px;
+
+                    .guess-field {
+                        position: relative;
+                        font-size: map-get($font-sizes, large);
+                        width: 1.2em;
+                        height: 2em;
+                        background-color: $bright-bg-color;
+                        border-radius: $default-smaller-radius;
+                        font-weight: map-get($font-weights, bold);
+
+                        appearance: none;
+                        text-align: center;
+                        justify-content: center;
+                        box-shadow: $inner-shadow, $outer-glare;
+
+                        &:hover {
+                            background-color: red;
+                        }
+                    }
+                }
+                .section-number-range {
+                    text-align: center;
+                    display: block;
+
+                    input {
+                        margin: 8px;
+                        min-width: 50px;
+                        color: $text-color;
+                        background-color: $bg-color2;
+                        border: $default-border;
+                        border-radius: $default-smaller-radius;
+                        text-align: center;
+                    }
+                }
+                .add-field-btn {
+                    display: inline-block;
+                    box-shadow: $inner-glare;
+                    padding: 10px;
+                    border-radius: $default-radius;
+
+                    font-weight: map-get($font-weights, regular);
+                    font-size: map-get($font-sizes, medium);
+                }
+            }
+        }
+        .add-section-btn {
+            padding: 30px 15px;
+            box-shadow: $inner-glare;
+            border-radius: $default-smaller-radius;
+            font-weight: map-get($font-weights, bold);
+            font-size: map-get($font-sizes, medium);
+            text-align: center;
+        }
     }
 
-    .guess-sections {
-        display: flex;
-        gap: 20px;
+    .rewards-table {
+        border-radius: $default-smaller-radius;
+        td {
+            border: $default-border;
+
+            text-align: center;
+            min-width: 30px;
+            input {
+                min-width: 50px;
+                color: $text-color;
+                background-color: $bg-color2;
+                border: $default-border;
+                border-radius: $default-smaller-radius;
+                text-align: center;
+            }
+        }
     }
 
-    .section-fields {
-        display: inline-block;
-        background-color: blue;
-        padding: 10px;
-        margin: 5px;
-    }
+    .guess-price {
+        margin: 20px 0;
 
-    .guess-field {
-        display: inline-block;
-        background-color: white;
-        width: 30px;
-        height: 80px;
-        margin: 5px;
-    }
-
-    .guess-field:hover {
-        background-color: red;
-    }
-
-    .add-field-btn {
-        display: inline-block;
-        background-color: white;
-    }
-
-    .add-section-btn {
-        width: 25px;
-        height: 70px;
-        background-color: red;
-    }
-
-    .section-number-range {
-        text-align: center;
-    }
-
-    .section-number-range > input {
-        width: 30px;
-    }
-
-    .rewards-table td {
-        border: $default-border;
-        text-align: center;
-        min-width: 30px;
+        input {
+            min-width: 50px;
+            color: $text-color;
+            background-color: $bg-color2;
+            border: $default-border;
+            border-radius: $default-smaller-radius;
+            text-align: center;
+        }
     }
 }
 
 .time {
-    position: absolute;
+    position: fixed;
     right: 10px;
     bottom: 10px;
 }

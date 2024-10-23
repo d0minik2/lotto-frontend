@@ -1,5 +1,5 @@
 function show_result() {
-    $(".result").css("display", "block")
+    // $(".result").css("display", "block")
 }
 
 function disable_inputs() {
@@ -13,7 +13,7 @@ function disable_inputs() {
 function balance_update() {
     balance_p = $(".total-balance")
     balance = parseFloat(balance_p.text())
-    console.log(balance, balance_p.text(), balance_p.val())
+
     if (balance >= 0) {
         balance_p.removeClass("negative")
         balance_p.addClass("positive")
@@ -25,10 +25,12 @@ function balance_update() {
 }
 
 function on_start() {
+    $("main").addClass("started")
+
     disable_inputs()
     show_result()
 
-    $("main").addClass("started")
+
 }
 
 function on_update() {

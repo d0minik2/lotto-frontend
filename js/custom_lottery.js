@@ -45,6 +45,7 @@ function add_section(fields = 1, range_min = 1, range_max = 10) {
 
 
     number_range.append($(`<input type="number" name="min_guess_number" class="min_range_guess" min="0" max="1000" value="${range_min}">`))
+    number_range.append("-")
     number_range.append($(`<input type="number" name="max_guess_number" class="max_range_guess" min="0" max="1000" value="${range_max}">`))
 
     // FIELD ACTIONS

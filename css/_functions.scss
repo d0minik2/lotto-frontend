@@ -80,3 +80,21 @@
         transform: rotate(360deg);
     }
 }
+
+@keyframes slide-right {
+    from {
+        transform: translateX(100vw);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-left {
+    from {
+        transform: translateX(-100vw);
+    }
+    to {
+        transform: translateX(0);
+    }
+}

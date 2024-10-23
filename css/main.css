@@ -42,6 +42,22 @@
     transform: rotate(360deg);
   }
 }
+@keyframes slide-right {
+  from {
+    transform: translateX(100vw);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes slide-left {
+  from {
+    transform: translateX(-100vw);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
 *, *:before, *:after {
   box-sizing: border-box;
 }
@@ -194,7 +210,7 @@ main::after {
   background-color: #080809;
 }
 .controls .lottery-type option:last-child {
-  background-color: #c2746b;
+  background-color: #6bc395;
   font-weight: 500;
 }
 .controls .guess-settings {
@@ -326,6 +342,8 @@ main::after {
 
 .result {
   display: none;
+  flex-direction: column;
+  gap: 5px;
   width: 50%;
   position: absolute;
   right: 40px;
@@ -336,12 +354,22 @@ main::after {
   box-shadow: inset #cbcbd4 0px 0px 20px -10px;
   background-color: rgba(8, 8, 9, 0.4);
   transition: 0.3s;
+  z-index: 3;
+}
+.started .result {
+  display: flex;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
 }
 .result h4 {
   font-size: 17px;
 }
+.result h4:not(:first-child) {
+  margin-top: 15px;
+}
 .result p {
   font-size: 28px;
+  display: block;
 }
 .result p.total-balance.positive {
   color: #6bc395;
@@ -358,6 +386,7 @@ main::after {
   text-align: center;
   top: 50%;
   transform: translateY(-50%);
+  transition: 0.3s;
 }
 .earth-anim svg {
   width: 500px;
@@ -379,70 +408,139 @@ main::after {
 }
 .started .earth-anim {
   display: block;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
 }
 
 .custom-settings-popup {
   position: absolute;
   z-index: 100;
   width: 90%;
-  min-height: 90%;
   margin-top: 5%;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 10px;
-  border: 1px solid #cbcbd4;
+  box-shadow: inset #cbcbd4 0px 0px 20px -10px;
   padding: 40px;
-  -webkit-backdrop-filter: blur(15px);
-          backdrop-filter: blur(15px);
-  background-color: #000000;
+  background-color: rgba(8, 8, 9, 0.4);
+  -webkit-backdrop-filter: blur(50px);
+          backdrop-filter: blur(50px);
+}
+.custom-settings-popup .exit-btn {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+  font-size: 60px;
+}
+.custom-settings-popup h4 {
+  font-size: 28px;
+  margin: 20px 0;
 }
 .custom-settings-popup .guess-settings {
   display: flex;
   align-items: center;
 }
-.custom-settings-popup .guess-sections {
+.custom-settings-popup .guess-settings .guess-sections {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
 }
-.custom-settings-popup .section-fields {
-  display: inline-block;
-  background-color: blue;
+.custom-settings-popup .guess-settings .guess-sections .guess-section {
+  gap: 40px;
+  margin: 10px;
+  padding: 40px;
+  border-radius: 50px;
+  box-shadow: inset #cbcbd4 0px 0px 20px -10px;
+  background-color: rgba(8, 8, 9, 0.22);
+  transition: 0.3s;
+}
+.custom-settings-popup .guess-settings .guess-sections .guess-section::before {
+  background-color: #000000;
+  width: 100%;
+  height: 100%;
+}
+.custom-settings-popup .guess-settings .guess-sections .guess-section .section-fields {
+  display: inline-flex;
+  gap: 15px;
   padding: 10px;
   margin: 5px;
 }
-.custom-settings-popup .guess-field {
-  display: inline-block;
-  background-color: white;
-  width: 30px;
-  height: 80px;
-  margin: 5px;
+.custom-settings-popup .guess-settings .guess-sections .guess-section .section-fields .guess-field {
+  position: relative;
+  font-size: 60px;
+  width: 1.2em;
+  height: 2em;
+  background-color: #cbcbd4;
+  border-radius: 10px;
+  font-weight: 700;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  text-align: center;
+  justify-content: center;
+  box-shadow: inset #080809 0px 0px 20px -10px, 0px 0px 26px 0px #cbcbd4;
 }
-.custom-settings-popup .guess-field:hover {
+.custom-settings-popup .guess-settings .guess-sections .guess-section .section-fields .guess-field:hover {
   background-color: red;
 }
-.custom-settings-popup .add-field-btn {
-  display: inline-block;
-  background-color: white;
+.custom-settings-popup .guess-settings .guess-sections .guess-section .section-number-range {
+  text-align: center;
+  display: block;
 }
-.custom-settings-popup .add-section-btn {
-  width: 25px;
-  height: 70px;
-  background-color: red;
-}
-.custom-settings-popup .section-number-range {
+.custom-settings-popup .guess-settings .guess-sections .guess-section .section-number-range input {
+  margin: 8px;
+  min-width: 50px;
+  color: #f2f2f2;
+  background-color: #2a2a2f;
+  border: 1px solid #cbcbd4;
+  border-radius: 10px;
   text-align: center;
 }
-.custom-settings-popup .section-number-range > input {
-  width: 30px;
+.custom-settings-popup .guess-settings .guess-sections .guess-section .add-field-btn {
+  display: inline-block;
+  box-shadow: inset #cbcbd4 0px 0px 20px -10px;
+  padding: 10px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 28px;
+}
+.custom-settings-popup .guess-settings .add-section-btn {
+  padding: 30px 15px;
+  box-shadow: inset #cbcbd4 0px 0px 20px -10px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 28px;
+  text-align: center;
+}
+.custom-settings-popup .rewards-table {
+  border-radius: 10px;
 }
 .custom-settings-popup .rewards-table td {
   border: 1px solid #cbcbd4;
   text-align: center;
   min-width: 30px;
 }
+.custom-settings-popup .rewards-table td input {
+  min-width: 50px;
+  color: #f2f2f2;
+  background-color: #2a2a2f;
+  border: 1px solid #cbcbd4;
+  border-radius: 10px;
+  text-align: center;
+}
+.custom-settings-popup .guess-price {
+  margin: 20px 0;
+}
+.custom-settings-popup .guess-price input {
+  min-width: 50px;
+  color: #f2f2f2;
+  background-color: #2a2a2f;
+  border: 1px solid #cbcbd4;
+  border-radius: 10px;
+  text-align: center;
+}
 
 .time {
-  position: absolute;
+  position: fixed;
   right: 10px;
   bottom: 10px;
 }/*# sourceMappingURL=main.css.map */
