@@ -45,14 +45,16 @@ $breakpoints: (
     "large": 992px
 );
 
-body {
+:root {
     background-color: $bg-color;
     background: radial-gradient(circle, $bg-color, $bg-color2), url(../assets/noise-texture.svg);
     background-size: 200vw 200vh;
     background-attachment: fixed;
 
     animation: background-blur 20s ease infinite;
+}
 
+body {
     color: $text-color;
     font-family: $primary-font;
 
@@ -136,6 +138,10 @@ main {
         background-color: #6bc395;
         z-index: 100000;
     }
+
+    @media screen and (max-width: map-get($breakpoints, medium)) {
+        padding: $default-padding / 2;
+    }
 }
 
 .controls {
@@ -165,6 +171,7 @@ main {
         font-family: $header-font;
         font-size: map-get($font-sizes, medium);
         text-align: center;
+        text-align-last: center;
 
         option {
             text-align: center;
@@ -359,7 +366,7 @@ main {
 
     @media screen and (max-width: map-get($breakpoints, medium)) {
         position: static;
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
         transform: none;
         margin-top: 15px;
@@ -474,7 +481,7 @@ main {
     svg {
         margin: 0 auto;
         width: 50%;
-        min-width: 200px;
+        min-width: 120px;
         overflow: visible;
     }
 

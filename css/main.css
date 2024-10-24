@@ -111,12 +111,15 @@ input {
   border-radius: 0;
 }
 
-body {
+:root {
   background-color: #080809;
   background: radial-gradient(circle, #080809, #2a2a2f), url(../assets/noise-texture.svg);
   background-size: 200vw 200vh;
   background-attachment: fixed;
   animation: background-blur 20s ease infinite;
+}
+
+body {
   color: #f2f2f2;
   font-family: "ApfelGrotezk", Helvetica, Arial, sans-serif;
   overflow-x: hidden;
@@ -187,6 +190,11 @@ main::after {
   background-color: #6bc395;
   z-index: 100000;
 }
+@media screen and (max-width: 800px) {
+  main {
+    padding: 20px;
+  }
+}
 
 .controls {
   position: absolute;
@@ -212,6 +220,8 @@ main::after {
   font-family: "ApfelGrotezk", Helvetica, sans-serif;
   font-size: 28px;
   text-align: center;
+  -moz-text-align-last: center;
+       text-align-last: center;
 }
 .controls .lottery-type option {
   text-align: center;
@@ -386,7 +396,7 @@ main::after {
 @media screen and (max-width: 800px) {
   .result {
     position: static;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     transform: none;
     margin-top: 15px;
@@ -494,7 +504,7 @@ main::after {
 .earth-anim svg {
   margin: 0 auto;
   width: 50%;
-  min-width: 200px;
+  min-width: 120px;
   overflow: visible;
 }
 .earth-anim .space {

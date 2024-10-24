@@ -185,7 +185,7 @@ function pause_simulation() {
 }
 
 
-const apiURL = "http://dominik.chiptric.com/api/"
+const apiURL = "http://dominik.chiptric.com/lotteryapi/api/"
 let WON = false
 let STARTED = false
 let paused = false
