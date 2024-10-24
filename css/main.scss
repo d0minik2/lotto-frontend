@@ -45,7 +45,33 @@ $breakpoints: (
     "large": 992px
 );
 
+:root {
+    background-color: $bg-color;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+}
+
 html {
+    background-color: $bg-color;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    color: $text-color;
+    font-family: $primary-font;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+
     background-color: $bg-color;
     background: radial-gradient(circle, $bg-color, $bg-color2), url(../assets/noise-texture.svg);
     background-size: 200vw 200vh;
@@ -58,14 +84,6 @@ html {
     height: 100%;
     width: 100%;
     animation: background-blur 20s ease infinite;
-}
-
-body {
-    color: $text-color;
-    font-family: $primary-font;
-    height: 100%;
-    width: 100%;
-    overflow-x: hidden;
 
     &::before {
         content: " ";
@@ -277,10 +295,11 @@ main {
 
                 @media screen and (max-width: map-get($breakpoints, medium)) {
                     font-size: map-get($font-sizes, medium);
+                    padding: 0;
                     box-shadow: $inner-shadow;
-                    border-radius: $default-smaller-radius / 2;
-                    // width: 2em;
-                    // height: 3.2em;
+                    border-radius: $default-smaller-radius;
+                    width: 10vw;
+                    height: 20vw;
                 }
             }
             @media screen and (max-width: map-get($breakpoints, medium)) {
@@ -785,8 +804,9 @@ main {
 }
 
 .time {
+    // display: none;
     position: fixed;
     right: 10px;
     bottom: 10px;
-    opacity: 0.5;
+    opacity: 0.2;
 }

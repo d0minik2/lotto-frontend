@@ -111,7 +111,26 @@ input {
   border-radius: 0;
 }
 
+:root {
+  background-color: #080809;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+}
+
 html {
+  background-color: #080809;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  color: #f2f2f2;
+  font-family: "ApfelGrotezk", Helvetica, Arial, sans-serif;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
   background-color: #080809;
   background: radial-gradient(circle, #080809, #2a2a2f), url(../assets/noise-texture.svg);
   background-size: 200vw 200vh;
@@ -123,14 +142,6 @@ html {
   height: 100%;
   width: 100%;
   animation: background-blur 20s ease infinite;
-}
-
-body {
-  color: #f2f2f2;
-  font-family: "ApfelGrotezk", Helvetica, Arial, sans-serif;
-  height: 100%;
-  width: 100%;
-  overflow-x: hidden;
 }
 body::before {
   content: " ";
@@ -322,8 +333,11 @@ main::after {
 @media screen and (max-width: 800px) {
   .controls .guess-settings .guess select {
     font-size: 28px;
+    padding: 0;
     box-shadow: inset #080809 0px 0px 20px -10px;
-    border-radius: 5px;
+    border-radius: 10px;
+    width: 10vw;
+    height: 20vw;
   }
 }
 @media screen and (max-width: 800px) {
@@ -790,5 +804,5 @@ main::after {
   position: fixed;
   right: 10px;
   bottom: 10px;
-  opacity: 0.5;
+  opacity: 0.2;
 }/*# sourceMappingURL=main.css.map */
