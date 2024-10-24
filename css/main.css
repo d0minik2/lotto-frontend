@@ -211,6 +211,7 @@ main::after {
   font-weight: 400;
   font-family: "ApfelGrotezk", Helvetica, sans-serif;
   font-size: 28px;
+  text-align: center;
 }
 .controls .lottery-type option {
   text-align: center;
@@ -269,6 +270,7 @@ main::after {
   justify-content: center;
   box-shadow: inset #080809 0px 0px 20px -10px, 0px 0px 26px 0px #cbcbd4;
   transition: 0.3s;
+  color: #000000;
 }
 .controls .guess-settings .guess select option {
   transition: 0.3s;
@@ -280,6 +282,7 @@ main::after {
 @media screen and (max-width: 800px) {
   .controls .guess-settings .guess select {
     font-size: 28px;
+    box-shadow: inset #080809 0px 0px 20px -10px;
   }
 }
 .controls .guess-settings .random-guess-checkbox {
@@ -362,6 +365,7 @@ main::after {
   background-color: #6bc395;
   box-shadow: 0px 0px 34px 0px #6bc395;
   cursor: pointer;
+  color: #000000;
 }
 
 .result {
@@ -422,7 +426,7 @@ main::after {
   min-width: 100px;
   min-height: 40px;
   padding: 10px 40px;
-  position: absolute;
+  position: fixed;
   bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
@@ -434,13 +438,11 @@ main::after {
   background-color: #c2746b;
   box-shadow: 0px 0px 34px 0px #c2746b;
   cursor: pointer;
+  color: #000000;
 }
 @media screen and (max-width: 800px) {
   .reset-btn {
-    position: static;
-    margin: 0 auto;
-    transform: none;
-    margin-top: 15px;
+    position: fixed;
   }
 }
 .started .reset-btn {

@@ -164,6 +164,7 @@ main {
         font-weight: map-get($font-weights, regular);
         font-family: $header-font;
         font-size: map-get($font-sizes, medium);
+        text-align: center;
 
         option {
             text-align: center;
@@ -224,6 +225,7 @@ main {
                 justify-content: center;
                 box-shadow: $inner-shadow, $outer-glare;
                 transition: $tranistion-time;
+                color: $dark-bg-color;
                 option {
                     transition: $tranistion-time;
                     font-size: map-get($font-sizes, small);
@@ -238,6 +240,7 @@ main {
 
                 @media screen and (max-width: map-get($breakpoints, medium)) {
                     font-size: map-get($font-sizes, medium);
+                    box-shadow: $inner-shadow;
                 }
             }
         }
@@ -331,6 +334,7 @@ main {
         background-color: $green-color;
         box-shadow: 0px 0px 34px 0px $green-color;
         cursor: pointer;
+        color: $dark-bg-color;
     }
 }
 
@@ -403,7 +407,7 @@ main {
     min-width: 100px;
     min-height: 40px;
     padding: 10px 40px;
-    position: absolute;
+    position: fixed;
     bottom: $default-padding;
     @include horizontal-center;
 
@@ -415,12 +419,10 @@ main {
     background-color: $negative-color;
     box-shadow: 0px 0px 34px 0px $negative-color;
     cursor: pointer;
+    color: $dark-bg-color;
 
     @media screen and (max-width: map-get($breakpoints, medium)) {
-        position: static;
-        margin: 0 auto;
-        transform: none;
-        margin-top: 15px;
+        position: fixed;
     }
 
     .started & {
