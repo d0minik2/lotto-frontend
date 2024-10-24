@@ -48,7 +48,7 @@ function on_update() {
 
 function on_reset() {
     enable_inputs()
-
+    random_guess_change()
     $("main").removeClass("started").removeClass("won")
 }
 

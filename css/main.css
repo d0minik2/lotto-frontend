@@ -466,6 +466,7 @@ main::after {
   animation-fill-mode: forwards;
 }
 .won .earth-anim .space {
+  animation-duration: 6s;
   animation-iteration-count: 1;
 }
 .started .earth-anim {

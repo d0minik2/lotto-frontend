@@ -449,6 +449,7 @@ main {
         // -webkit-animation-fill-mode: forwards;
 
         .won & {
+            animation-duration: 6s;
             animation-iteration-count: 1;
         }
     }

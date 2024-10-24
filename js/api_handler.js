@@ -1,24 +1,25 @@
 function generate_uid() {
-    ThumbmarkJS.getFingerprint().then(
-        function (fp) {
-            return fp
-        }
-    );
+    return "xxxxxxxx4xxxyxxxxxxx"
+        .replace(/[xy]/g, function (c) {
+            const r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
 }
 
 function time_start() {
-    const date = new Date();
+    const date = new Date()
     time_started = date.getTime()
 }
 
 function calculate_avg_time(years_passed) {
-    const date = new Date();
-    now = date.getTime()
+    const date = new Date()
+    let now = date.getTime()
 
-    time = now - time_started
+    let time = now - time_started
 
     // in milliseconds 
-    avg_time_per_year = time / years_passed
+    let avg_time_per_year = time / years_passed
     return Math.round(avg_time_per_year * 100) / 100
 }
 
@@ -184,11 +185,9 @@ function pause_simulation() {
 }
 
 
-
 const apiURL = "http://dominik.chiptric.com/api/"
 let WON = false
 let STARTED = false
 let paused = false
 let time_started
 const UID = generate_uid()
-
