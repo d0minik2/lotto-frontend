@@ -54,7 +54,7 @@
                 <input type="range" name="rounds-per-week" id="rounds-per-week" min="1" max="7" step="1" value="3"
                     oninput="this.nextElementSibling.value = this.value" class="rounds-per-week-input">
                 <output>3</output>
-                <label for="rounds-per-week" class="round-per-week-label">loterie w tygodniu</label>
+                <label for="rounds-per-week" class="round-per-week-label"> loterie w tygodniu</label>
 
             </div>
 
@@ -92,6 +92,10 @@
 
         </div>
 
+        <div class="earth-anim">
+
+        </div>
+
         <div class="result">
             <h4>Games played: </h4>
             <p class="games-played"></p>
@@ -116,10 +120,6 @@
                     class="simulation-speed-input">
                 <label for="speed" class="simulation-speed-label">Speed</label>
             </div>
-        </div>
-
-        <div class="earth-anim">
-
         </div>
 
         <button class="reset-btn" onclick="reset_simulation()">Reset</button>

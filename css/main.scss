@@ -39,6 +39,12 @@ $outer-glare: 0px 0px 26px 0px $bright-bg-color;
 
 $tranistion-time: 0.3s;
 
+$breakpoints: (
+    "small": 600px,
+    "medium": 800px,
+    "large": 992px
+);
+
 body {
     background-color: $bg-color;
     background: radial-gradient(circle, $bg-color, $bg-color2), url(../assets/noise-texture.svg);
@@ -173,6 +179,7 @@ main {
         display: flex;
         align-items: center;
         flex-wrap: nowrap;
+        justify-content: center;
         max-width: 98vw;
 
         .guess {
@@ -196,6 +203,11 @@ main {
                     background-color: $dark-bg-color;
                     width: 100%;
                     height: 100%;
+                }
+                @media screen and (max-width: map-get($breakpoints, medium)) {
+                    padding: $default-padding / 2;
+                    gap: $default-padding / 2;
+                    border-radius: $default-radius / 2;
                 }
             }
             select {
@@ -223,6 +235,10 @@ main {
                     // border-color: $green-color;
                     box-shadow: $outer-glare;
                 }
+
+                @media screen and (max-width: map-get($breakpoints, medium)) {
+                    font-size: map-get($font-sizes, medium);
+                }
             }
         }
         .random-guess-checkbox {
@@ -246,7 +262,8 @@ main {
             justify-content: center;
             transition: $tranistion-time;
             img {
-                width: 100%;
+                width: 40px;
+                height: 40px;
                 opacity: 0.9;
             }
         }
@@ -258,7 +275,8 @@ main {
     }
 
     .rounds-per-week {
-        display: inline-block;
+        display: inline-flex;
+        flex-wrap: nowrap;
         position: absolute;
         @include horizontal-center;
         input {
@@ -288,6 +306,7 @@ main {
 
         output,
         label {
+            margin-left: 3px;
             font-weight: map-get($font-weights, regular);
             color: $text-color;
             opacity: 0.5;
@@ -332,7 +351,15 @@ main {
     background-color: rgba($bg-color, 0.4);
 
     transition: $tranistion-time;
-    z-index: 3;
+    // z-index: 3;
+
+    @media screen and (max-width: map-get($breakpoints, medium)) {
+        position: static;
+        width: 90%;
+        margin: 0 auto;
+        transform: none;
+        margin-top: 15px;
+    }
 
     .started & {
         display: flex;
@@ -389,6 +416,13 @@ main {
     box-shadow: 0px 0px 34px 0px $negative-color;
     cursor: pointer;
 
+    @media screen and (max-width: map-get($breakpoints, medium)) {
+        position: static;
+        margin: 0 auto;
+        transform: none;
+        margin-top: 15px;
+    }
+
     .started & {
         display: block;
     }
@@ -429,8 +463,16 @@ main {
     @include vertical-center;
     transition: $tranistion-time;
 
+    @media screen and (max-width: map-get($breakpoints, medium)) {
+        position: static;
+        margin: 0 auto;
+        transform: none;
+    }
+
     svg {
-        width: 500px;
+        margin: 0 auto;
+        width: 50%;
+        min-width: 200px;
         overflow: visible;
     }
 

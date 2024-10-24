@@ -224,6 +224,7 @@ main::after {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
+  justify-content: center;
   max-width: 98vw;
 }
 .controls .guess-settings .guess {
@@ -245,6 +246,13 @@ main::after {
   background-color: #000000;
   width: 100%;
   height: 100%;
+}
+@media screen and (max-width: 800px) {
+  .controls .guess-settings .guess section {
+    padding: 20px;
+    gap: 20px;
+    border-radius: 25px;
+  }
 }
 .controls .guess-settings .guess select {
   position: relative;
@@ -269,6 +277,11 @@ main::after {
 .controls .guess-settings .guess select:enabled:hover {
   box-shadow: 0px 0px 26px 0px #cbcbd4;
 }
+@media screen and (max-width: 800px) {
+  .controls .guess-settings .guess select {
+    font-size: 28px;
+  }
+}
 .controls .guess-settings .random-guess-checkbox {
   display: none;
 }
@@ -286,7 +299,8 @@ main::after {
   transition: 0.3s;
 }
 .controls .guess-settings .random-guess-btn img {
-  width: 100%;
+  width: 40px;
+  height: 40px;
   opacity: 0.9;
 }
 .controls .guess-settings .random-guess-checkbox:checked + .random-guess-btn {
@@ -294,7 +308,8 @@ main::after {
   box-shadow: inset #6bc395 0px 0px 20px -10px;
 }
 .controls .rounds-per-week {
-  display: inline-block;
+  display: inline-flex;
+  flex-wrap: nowrap;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -324,6 +339,7 @@ main::after {
 }
 .controls .rounds-per-week output,
 .controls .rounds-per-week label {
+  margin-left: 3px;
   font-weight: 400;
   color: #f2f2f2;
   opacity: 0.5;
@@ -362,7 +378,15 @@ main::after {
   box-shadow: inset #cbcbd4 0px 0px 20px -10px;
   background-color: rgba(8, 8, 9, 0.4);
   transition: 0.3s;
-  z-index: 3;
+}
+@media screen and (max-width: 800px) {
+  .result {
+    position: static;
+    width: 90%;
+    margin: 0 auto;
+    transform: none;
+    margin-top: 15px;
+  }
 }
 .started .result {
   display: flex;
@@ -411,6 +435,14 @@ main::after {
   box-shadow: 0px 0px 34px 0px #c2746b;
   cursor: pointer;
 }
+@media screen and (max-width: 800px) {
+  .reset-btn {
+    position: static;
+    margin: 0 auto;
+    transform: none;
+    margin-top: 15px;
+  }
+}
 .started .reset-btn {
   display: block;
 }
@@ -450,8 +482,17 @@ main::after {
   transform: translateY(-50%);
   transition: 0.3s;
 }
+@media screen and (max-width: 800px) {
+  .earth-anim {
+    position: static;
+    margin: 0 auto;
+    transform: none;
+  }
+}
 .earth-anim svg {
-  width: 500px;
+  margin: 0 auto;
+  width: 50%;
+  min-width: 200px;
   overflow: visible;
 }
 .earth-anim .space {
