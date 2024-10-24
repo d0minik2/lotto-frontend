@@ -40,24 +40,31 @@ $outer-glare: 0px 0px 26px 0px $bright-bg-color;
 $tranistion-time: 0.3s;
 
 $breakpoints: (
-    "small": 600px,
+    "small": 300px,
     "medium": 800px,
     "large": 992px
 );
 
-:root {
+html {
     background-color: $bg-color;
     background: radial-gradient(circle, $bg-color, $bg-color2), url(../assets/noise-texture.svg);
     background-size: 200vw 200vh;
     background-attachment: fixed;
+    background-position: center;
 
+    -webkit-background-size: 200vw 200vh;
+    -moz-background-size: 200vw 200vh;
+    -o-background-size: 200vw 200vh;
+    height: 100%;
+    width: 100%;
     animation: background-blur 20s ease infinite;
 }
 
 body {
     color: $text-color;
     font-family: $primary-font;
-
+    height: 100%;
+    width: 100%;
     overflow-x: hidden;
 
     &::before {
@@ -173,6 +180,17 @@ main {
         text-align: center;
         text-align-last: center;
 
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: transparent;
+        background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+        background-repeat: no-repeat;
+        background-position-x: 100%;
+        background-position-y: center;
+        background-size: 30px;
+        // padding: 1rem;
+        padding-right: 30px;
+
         option {
             text-align: center;
             background-color: $bg-color;
@@ -194,9 +212,12 @@ main {
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-color: $bright-bg-color $bg-color;
+            scrollbar-width: thin;
             section {
                 display: inline-flex;
-
+                flex-wrap: nowrap;
                 gap: $default-padding;
                 margin: 10px;
                 padding: $default-padding;
@@ -214,8 +235,11 @@ main {
                 }
                 @media screen and (max-width: map-get($breakpoints, medium)) {
                     padding: $default-padding / 2;
-                    gap: $default-padding / 2;
+                    gap: $default-padding / 3;
                     border-radius: $default-radius / 2;
+                }
+                @media screen and (max-width: map-get($breakpoints, small)) {
+                    overflow-x: scroll;
                 }
             }
             select {
@@ -224,6 +248,7 @@ main {
                 width: 1.2em;
                 height: 2em;
                 background-color: $bright-bg-color;
+                border: none;
                 border-radius: $default-smaller-radius;
                 font-weight: map-get($font-weights, bold);
 
@@ -233,6 +258,7 @@ main {
                 box-shadow: $inner-shadow, $outer-glare;
                 transition: $tranistion-time;
                 color: $dark-bg-color;
+
                 option {
                     transition: $tranistion-time;
                     font-size: map-get($font-sizes, small);
@@ -245,10 +271,21 @@ main {
                     box-shadow: $outer-glare;
                 }
 
+                &:disabled {
+                    filter: brightness(0.7);
+                }
+
                 @media screen and (max-width: map-get($breakpoints, medium)) {
                     font-size: map-get($font-sizes, medium);
                     box-shadow: $inner-shadow;
+                    border-radius: $default-smaller-radius / 2;
+                    // width: 2em;
+                    // height: 3.2em;
                 }
+            }
+            @media screen and (max-width: map-get($breakpoints, medium)) {
+                flex-wrap: wrap;
+                overflow-x: hidden;
             }
         }
         .random-guess-checkbox {
@@ -267,20 +304,33 @@ main {
             // border: $default-border;
             border-color: transparent;
             box-shadow: $inner-glare;
-            width: 1.2em;
+            // width: 1.2em;
             text-align: center;
             justify-content: center;
             transition: $tranistion-time;
             img {
-                width: 40px;
-                height: 40px;
+                width: 50px;
+                height: 50px;
                 opacity: 0.9;
+            }
+            @media screen and (max-width: map-get($breakpoints, medium)) {
+                img {
+                    width: 25px;
+                    height: 25px;
+                }
+                padding: 12px 40px;
+                margin-bottom: 20px;
+                margin-top: 20px;
             }
         }
 
         .random-guess-checkbox:checked + .random-guess-btn {
             border-color: $green-color;
             box-shadow: $green-inner-glare;
+        }
+
+        @media screen and (max-width: map-get($breakpoints, medium)) {
+            flex-wrap: wrap;
         }
     }
 
@@ -329,7 +379,7 @@ main {
         min-width: 100px;
         min-height: 40px;
         padding: 10px 40px;
-        position: absolute;
+        position: fixed;
         bottom: 0;
         @include horizontal-center;
 
@@ -572,6 +622,11 @@ main {
 
                 transition: $tranistion-time;
 
+                @media screen and (max-width: map-get($breakpoints, medium)) {
+                    padding: $default-padding / 3;
+                    border-radius: $default-radius / 3;
+                }
+
                 &::before {
                     background-color: $dark-bg-color;
                     width: 100%;
@@ -580,10 +635,13 @@ main {
 
                 .section-fields {
                     display: inline-flex;
+                    flex-wrap: wrap;
                     gap: 15px;
                     // background-color: blue;
                     padding: 10px;
                     margin: 5px;
+                    max-width: 80vw;
+                    // overflow-x: scroll;
 
                     .guess-field {
                         position: relative;
@@ -602,6 +660,14 @@ main {
 
                         background-position: center;
 
+                        @media screen and (max-width: map-get($breakpoints, medium)) {
+                            font-size: map-get($font-sizes, small);
+                            box-shadow: $inner-shadow;
+                            border-radius: $default-smaller-radius / 2;
+                            width: 2em;
+                            height: 3.2em;
+                        }
+
                         &:hover {
                             // background-color: ;
                             border: $default-border;
@@ -615,11 +681,14 @@ main {
                 }
                 .section-number-range {
                     text-align: center;
-                    display: block;
+                    display: flex;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    align-items: center;
 
                     input {
                         margin: 8px;
-                        min-width: 50px;
+                        min-width: 40px;
                         color: $text-color;
                         background-color: $bg-color2;
                         border: $default-border;
@@ -653,6 +722,7 @@ main {
             display: block;
             width: 1.2em;
             height: 2em;
+            min-width: 30px;
             box-shadow: $inner-glare;
             border-radius: $default-smaller-radius;
             border: $default-border;
