@@ -35,7 +35,7 @@
 
         <div class="controls">
 
-            <select name="lottery-type" id="lottery-type" class="lottery-type">
+            <select name="lottery-type" id="lottery-type" class="lottery-type" tabindex="2">
                 <option value="Lotto">Lotto</option>
                 <option value="EuroJackpot">EuroJackpot</option>
             </select>
@@ -45,7 +45,8 @@
 
                 </div>
 
-                <input type="checkbox" name="random-guess" id="random-guess" class="random-guess-checkbox" checked>
+                <input type="checkbox" name="random-guess" id="random-guess" class="random-guess-checkbox" tabindex="3"
+                    checked>
                 <label for="random-guess" class="random-guess-btn"><img src="./assets/dice-alt.svg" alt="random guess">
                 </label>
 
@@ -53,23 +54,23 @@
 
             <div class="rounds-per-week">
                 <input type="range" name="rounds-per-week" id="rounds-per-week" min="1" max="7" step="1" value="3"
-                    oninput="this.nextElementSibling.value = this.value" class="rounds-per-week-input">
+                    oninput="this.nextElementSibling.value = this.value" class="rounds-per-week-input" tabindex="4">
                 <output>3</output>
                 <label for="rounds-per-week" class="round-per-week-label"> loterie w tygodniu</label>
 
             </div>
 
         </div>
-        <button id="start-btn" class="start-btn" onclick="start_simulation()">Start</button>
+        <button id="start-btn" class="start-btn" onclick="start_simulation()" tabindex="1">Start</button>
 
         <div class="custom-settings-popup" style="display: none">
-            <div class="exit-btn"> </div>
+            <div class="exit-btn" tabindex="1"> </div>
 
             <h4>Guess format</h4>
             <div class="guess-settings">
                 <div class="guess-sections">
                 </div>
-                <div class="add-section-btn"></div>
+                <div class="add-section-btn" tabindex="3"></div>
             </div>
 
             <div class="guess-price">
@@ -120,7 +121,7 @@
             </div>
         </div>
 
-        <button class="reset-btn" onclick="reset_simulation()">Reset</button>
+        <button class="reset-btn" onclick="reset_simulation()" tabindex="1">Reset</button>
 
         <div class="time">
             average time <i>-</i> ms per year

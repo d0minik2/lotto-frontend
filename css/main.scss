@@ -34,7 +34,7 @@ $default-padding: 40px;
 
 $inner-glare: inset $bright-bg-color 0px 0px 20px -10px;
 $inner-shadow: inset $bg-color 0px 0px 20px -10px;
-$green-inner-glare: inset $green-color 0px 0px 20px -10px;
+$green-inner-glare: inset $green-color 0px 0px 35px -10px;
 $outer-glare: 0px 0px 26px 0px $bright-bg-color;
 
 $tranistion-time: 0.3s;
@@ -311,7 +311,8 @@ main {
             }
         }
         .random-guess-checkbox {
-            display: none;
+            position: absolute;
+            opacity: 0;
         }
 
         .random-guess-btn {
@@ -343,12 +344,24 @@ main {
                 padding: 12px 40px;
                 margin-bottom: 20px;
                 margin-top: 20px;
+                &::after {
+                    content: "Losowe liczby";
+                    font-size: map-get($font-sizes, small);
+                    color: $text-color;
+                    opacity: 0.8;
+                    line-height: 24px;
+                    margin-left: 8px;
+                }
             }
         }
 
         .random-guess-checkbox:checked + .random-guess-btn {
             border-color: $green-color;
             box-shadow: $green-inner-glare;
+        }
+
+        .random-guess-checkbox:focus + .random-guess-btn {
+            border: $default-border;
         }
 
         @media screen and (max-width: map-get($breakpoints, medium)) {
@@ -510,6 +523,7 @@ main {
 
     @media screen and (max-width: map-get($breakpoints, medium)) {
         position: fixed;
+        box-shadow: none;
     }
 
     .started & {

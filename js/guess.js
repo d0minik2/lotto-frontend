@@ -31,7 +31,7 @@ function load_guess(lottery_name) {
 
         section.forEach(field => {
             // const input_field = $(`<input type="number" min="${field[0]}" max="${field[field.length - 1]}">`).addClass("guess-input")
-            const select_field = $(`<select>`).addClass("guess-input")
+            const select_field = $(`<select tabindex="5">`).addClass("guess-input")
 
             field.forEach(number => {
                 select_field.append($(`<option value="${number}">${number}</option>`))

@@ -38,7 +38,7 @@ function add_section(fields = 1, range_min = 1, range_max = 10) {
 
     const section_fields = $("<div>").addClass("section-fields")
 
-    const add_field_btn = $("<div>").addClass("add-field-btn").text("")
+    const add_field_btn = $("<div tabindex='3'>").addClass("add-field-btn").text("")
 
     section.append(number_range).append(section_fields).append(add_field_btn)
     $(".guess-sections").append(section)
@@ -128,10 +128,10 @@ function get_guess_table() {
         const range_min = parseInt($(this).children(".section-number-range").children(".min_range_guess").val())
         const range_max = parseInt($(this).children(".section-number-range").children(".max_range_guess").val())
 
-        // if (range_max - range_min - 1 < nof_fields) {
-        //     alert("Number of fields cannot be larger than number of guesses to choose")
-        //     return
-        // }
+        if (range_max - range_min + 1 < nof_fields) {
+            alert("Number of fields cannot be larger than number of guesses to choose")
+            return false
+        }
 
 
         for (let i = 0; i < nof_fields; i++) {

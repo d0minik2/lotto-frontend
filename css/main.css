@@ -323,7 +323,8 @@ main::after {
   }
 }
 .controls .guess-settings .random-guess-checkbox {
-  display: none;
+  position: absolute;
+  opacity: 0;
 }
 .controls .guess-settings .random-guess-btn {
   font-size: 60px;
@@ -352,10 +353,21 @@ main::after {
     width: 25px;
     height: 25px;
   }
+  .controls .guess-settings .random-guess-btn::after {
+    content: "Losowe liczby";
+    font-size: 17px;
+    color: #f2f2f2;
+    opacity: 0.8;
+    line-height: 24px;
+    margin-left: 8px;
+  }
 }
 .controls .guess-settings .random-guess-checkbox:checked + .random-guess-btn {
   border-color: #6bc395;
-  box-shadow: inset #6bc395 0px 0px 20px -10px;
+  box-shadow: inset #6bc395 0px 0px 35px -10px;
+}
+.controls .guess-settings .random-guess-checkbox:focus + .random-guess-btn {
+  border: 1px solid #cbcbd4;
 }
 @media screen and (max-width: 800px) {
   .controls .guess-settings {
@@ -504,6 +516,7 @@ main::after {
 @media screen and (max-width: 800px) {
   .reset-btn {
     position: fixed;
+    box-shadow: none;
   }
 }
 .started .reset-btn {

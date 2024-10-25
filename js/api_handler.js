@@ -78,35 +78,42 @@ async function init_simulation() {
             body["custom_guess_table"] = get_guess_table()
             body["custom_reward_table"] = get_price_table()
             body["custom_guess_price"] = get_guess_price()
-        }
-
-
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(body)
-        }
-
-        await fetch(postURL, options)
-            .then(response => {
-                STARTED = true
-                return response.json();
-            })
-            .then(data => {
-                true_guess = data["guess"]
-                if (guess === undefined) {
-                    set_guess(true_guess)
-                }
-                STARTED = true
-                return true
-            })
-            .catch(error => {
-                console.error('Error:', error)
+            if (body["custom_guess_table"] == false) {
+                correct = false
                 STARTED = false
                 return false
-            })
+            }
+        }
+
+        if (correct) {
+            const options = {
+                method: "POST",
+                headers: {
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify(body)
+            }
+
+            await fetch(postURL, options)
+                .then(response => {
+                    STARTED = true
+                    return response.json();
+                })
+                .then(data => {
+                    true_guess = data["guess"]
+                    if (guess === undefined) {
+                        set_guess(true_guess)
+                    }
+                    STARTED = true
+                    return true
+                })
+                .catch(error => {
+                    console.error('Error:', error)
+                    STARTED = false
+                    return false
+                })
+        }
+
     }
 }
 
@@ -118,42 +125,44 @@ async function set_simulation_guess() {
     const lottery_name = $("#lottery-type").val();
     const body = {
         "lottery_name": lottery_name,
-        "rounds_per_week": parseInt($("#rounds-per-week").val())
     }
 
-
+    let correct = true
     if (lottery_name == "CUSTOM") {
         body["custom"] = true
         body["custom_guess_table"] = get_guess_table()
         body["custom_reward_table"] = get_price_table()
         body["custom_guess_price"] = get_guess_price()
+        if (body["custom_guess_table"] == false) {
+            correct = false
+        }
+    }
+    if (correct) {
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(body)
+        }
+
+
+        await fetch(postURL, options)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                true_guess = data["guess"]
+                set_guess(true_guess)
+                return true
+            })
+            .catch(error => {
+                console.error('Error:', error)
+                return false
+            })
     }
 
 
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": 'application/json'
-        },
-        body: JSON.stringify(body)
-    }
-
-
-    await fetch(postURL, options)
-        .then(response => {
-            console.log("Aaa")
-            return response.json();
-        })
-        .then(data => {
-            console.log("Aaa")
-            true_guess = data["guess"]
-            set_guess(true_guess)
-            return true
-        })
-        .catch(error => {
-            console.error('Error:', error)
-            return false
-        })
 }
 
 
