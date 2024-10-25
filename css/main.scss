@@ -172,10 +172,10 @@ main {
 .controls {
     position: absolute;
     max-width: 95vw;
-    // min-height: 500px;
-    height: 100%;
+    min-height: 400px;
+    // height: 100%;
     @include center;
-    padding-top: 30vh;
+    // padding-top: 30vh;
     transition: $tranistion-time;
 
     .started & {
@@ -394,34 +394,30 @@ main {
             opacity: 0.5;
         }
     }
+}
 
-    #start-btn {
-        display: block;
-        margin: 0 auto;
-        min-width: 100px;
-        min-height: 40px;
-        padding: 10px 40px;
-        position: fixed;
-        bottom: $default-padding * 4;
-        @include horizontal-center;
+#start-btn {
+    display: block;
+    margin: 0 auto;
+    min-width: 100px;
+    min-height: 40px;
+    padding: 10px 40px;
+    position: fixed;
+    bottom: $default-padding * 4;
+    @include horizontal-center;
 
-        font-family: $primary-font;
-        font-weight: map-get($font-weights, bold);
-        font-size: map-get($font-sizes, medium);
-        border-radius: 16px;
-        border: none;
-        background-color: $green-color;
-        box-shadow: 0px 0px 34px 0px $green-color;
-        cursor: pointer;
-        color: $dark-bg-color;
-
-        @media screen and (max-width: map-get($breakpoints, medium)) {
-            bottom: $default-padding;
-        }
-    }
+    font-family: $primary-font;
+    font-weight: map-get($font-weights, bold);
+    font-size: map-get($font-sizes, medium);
+    border-radius: 16px;
+    border: none;
+    background-color: $green-color;
+    box-shadow: 0px 0px 34px 0px $green-color;
+    cursor: pointer;
+    color: $dark-bg-color;
 
     @media screen and (max-width: map-get($breakpoints, medium)) {
-        padding-top: 20vh;
+        bottom: $default-padding;
     }
 }
 
