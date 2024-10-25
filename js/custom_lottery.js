@@ -128,6 +128,12 @@ function get_guess_table() {
         const range_min = parseInt($(this).children(".section-number-range").children(".min_range_guess").val())
         const range_max = parseInt($(this).children(".section-number-range").children(".max_range_guess").val())
 
+        // if (range_max - range_min - 1 < nof_fields) {
+        //     alert("Number of fields cannot be larger than number of guesses to choose")
+        //     return
+        // }
+
+
         for (let i = 0; i < nof_fields; i++) {
             const field = []
             for (let n = range_min; n < range_max + 1; n++) {

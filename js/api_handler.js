@@ -108,10 +108,52 @@ async function init_simulation() {
                 return false
             })
     }
+}
 
 
+async function set_simulation_guess() {
+    // POST on api
+    const postURL = apiURL + UID
+
+    const lottery_name = $("#lottery-type").val();
+    const body = {
+        "lottery_name": lottery_name,
+        "rounds_per_week": parseInt($("#rounds-per-week").val())
+    }
 
 
+    if (lottery_name == "CUSTOM") {
+        body["custom"] = true
+        body["custom_guess_table"] = get_guess_table()
+        body["custom_reward_table"] = get_price_table()
+        body["custom_guess_price"] = get_guess_price()
+    }
+
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(body)
+    }
+
+
+    await fetch(postURL, options)
+        .then(response => {
+            console.log("Aaa")
+            return response.json();
+        })
+        .then(data => {
+            console.log("Aaa")
+            true_guess = data["guess"]
+            set_guess(true_guess)
+            return true
+        })
+        .catch(error => {
+            console.error('Error:', error)
+            return false
+        })
 }
 
 

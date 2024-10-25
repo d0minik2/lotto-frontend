@@ -416,6 +416,10 @@ main {
     cursor: pointer;
     color: $dark-bg-color;
 
+    .started & {
+        display: none;
+    }
+
     @media screen and (max-width: map-get($breakpoints, medium)) {
         bottom: $default-padding;
     }

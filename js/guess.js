@@ -107,6 +107,7 @@ function random_guess_change() {
     let checked = $("#random-guess").is(":checked")
 
     if (checked) {
+        set_simulation_guess()
         disable_guess()
     } else {
         enable_guess()
